@@ -1,4 +1,5 @@
 using Plots
+gr()
 
 function extract_series(results)
     subsidies = [r.subsidy for r in results]
@@ -23,69 +24,95 @@ end
 function plot_renewable_share(results)
     data = extract_series(results)
 
-    plot(
+    p = plot(
         data.subsidies,
-        data.renewable_share,
-        xlabel = "Renewable subsidy",
+        data.renewable_share;
+        xlabel = "Renewable subsidy, s",
         ylabel = "Renewable share",
-        title = "Renewable Share and Subsidy",
-        label = "Renewable share",
-        linewidth = 2
+        title = "Renewable Energy Share",
+        linewidth = 2,
+        legend = false,
+        size = (800, 500)
     )
+
+    display(p)
+    savefig(p, "figure1_renewable_share.png")
+    println("Saved figure1_renewable_share.png")
+    return p
 end
 
 function plot_aggregate_output(results)
     data = extract_series(results)
 
-    plot(
+    p = plot(
         data.subsidies,
-        data.Y,
-        xlabel = "Renewable subsidy",
+        data.Y;
+        xlabel = "Renewable subsidy, s",
         ylabel = "Aggregate output",
-        title = "Aggregate Output and Subsidy",
-        label = "Aggregate output",
-        linewidth = 2
+        title = "Aggregate Output",
+        linewidth = 2,
+        legend = false,
+        size = (800, 500)
     )
+
+    display(p)
+    savefig(p, "figure2_aggregate_output.png")
+    println("Saved figure2_aggregate_output.png")
+    return p
 end
 
 function plot_sectoral_output(results)
     data = extract_series(results)
 
-    plot(
+    p = plot(
         data.subsidies,
-        data.Y1,
-        xlabel = "Renewable subsidy",
+        data.Y1;
+        xlabel = "Renewable subsidy, s",
         ylabel = "Sectoral output",
-        title = "Sectoral Output and Subsidy",
+        title = "Sectoral Output",
         label = "Sector 1",
-        linewidth = 2
+        linewidth = 2,
+        size = (800, 500)
     )
 
     plot!(
+        p,
         data.subsidies,
-        data.Y2,
+        data.Y2;
         label = "Sector 2",
         linewidth = 2
     )
+
+    display(p)
+    savefig(p, "figure3_sectoral_output.png")
+    println("Saved figure3_sectoral_output.png")
+    return p
 end
 
 function plot_energy_prices(results)
     data = extract_series(results)
 
-    plot(
+    p = plot(
         data.subsidies,
-        data.PE1,
-        xlabel = "Renewable subsidy",
+        data.PE1;
+        xlabel = "Renewable subsidy, s",
         ylabel = "Energy price index",
-        title = "Sectoral Energy Prices and Subsidy",
+        title = "Sectoral Energy Prices",
         label = "Sector 1",
-        linewidth = 2
+        linewidth = 2,
+        size = (800, 500)
     )
 
     plot!(
+        p,
         data.subsidies,
-        data.PE2,
+        data.PE2;
         label = "Sector 2",
         linewidth = 2
     )
+
+    display(p)
+    savefig(p, "figure4_sectoral_energy_prices.png")
+    println("Saved figure4_sectoral_energy_prices.png")
+    return p
 end
