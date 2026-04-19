@@ -47,15 +47,11 @@ end
 function solve_sector(A, K, L, alpha, beta, chi, omega, sigma, Pf, Pr)
     PE = energy_price_index(Pf, Pr, omega, sigma)
 
-    # start with a simple initial guess for output
     Y_guess = A * K^alpha * L^beta * 1.0^(1 - alpha - beta)
-
-    # use the FOC for energy together with production
+    
     gamma = 1 - alpha - beta
     constant_part = A * K^alpha * L^beta * chi^gamma
 
-    # from PE = gamma * Y / E and Y = constant_part * E^gamma
-    # we get: E^(1-gamma) = gamma * constant_part / PE
     E = (gamma * constant_part / PE)^(1 / (1 - gamma))
 
     Y = sector_output(A, K, L, E, alpha, beta, chi)

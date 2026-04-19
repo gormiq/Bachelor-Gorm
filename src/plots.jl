@@ -116,3 +116,36 @@ function plot_energy_prices(results)
     println("Saved figure4_sectoral_energy_prices.png")
     return p
 end
+
+
+
+
+function plot_sensitivity_sigma(results_base, results_low)
+    data_base = extract_series(results_base)
+    data_low = extract_series(results_low)
+
+    p = plot(
+        data_base.subsidies,
+        data_base.renewable_share;
+        label = "σ = 2 (baseline)",
+        linewidth = 2,
+        xlabel = "Renewable subsidy, s",
+        ylabel = "Renewable share",
+        title = "Sensitivity to Elasticity of Substitution",
+        size = (800, 500)
+    )
+
+    plot!(
+        p,
+        data_low.subsidies,
+        data_low.renewable_share;
+        label = "σ = 1.2",
+        linewidth = 2
+    )
+
+    display(p)
+    savefig(p, "figure5_sensitivity_sigma.png")
+    println("Saved figure5_sensitivity_sigma.png")
+
+    return p
+end
