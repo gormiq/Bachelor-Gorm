@@ -1,0 +1,388 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\title{Equations}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Household}
+
+The representative household solves:
+
+\begin{align}
+\max_{\{C_t,I_t,K_{t+1}\}_{t=0}^{\infty}}
+\sum_{t=0}^{\infty} \beta^t \ln C_t
+\end{align}
+
+subject to:
+
+\begin{align}
+C_t + I_t + T_t &= w_t L_t + r_t K_t + \Pi_t,
+\end{align}
+
+and the law of motion for capital:
+
+\begin{align}
+K_{t+1} &= (1-\delta)K_t + I_t.
+\end{align}
+
+The Euler equation is:
+
+\begin{align}
+\frac{1}{C_t}
+=
+\beta \frac{1}{C_{t+1}}
+(1+r_{t+1}-\delta).
+\end{align}
+
+\section{Final Goods Sectors}
+
+There are two final goods sectors, indexed by \(j \in \{1,2\}\). Sector \(j\) produces:
+
+\begin{align}
+Y_{j,t}
+=
+A_j K_{j,t}^{\alpha_j}
+L_{j,t}^{\beta_j}
+(\chi_t E_{j,t})^{1-\alpha_j-\beta_j}.
+\end{align}
+
+Aggregate output is:
+
+\begin{align}
+Y_t = Y_{1,t} + Y_{2,t}.
+\end{align}
+
+Sector \(j\) chooses capital, labor, and energy services to maximize profits:
+
+\begin{align}
+\Pi_{j,t}
+=
+Y_{j,t}
+-
+r_t K_{j,t}
+-
+w_t L_{j,t}
+-
+P_{E,j,t}E_{j,t}.
+\end{align}
+
+The first-order conditions are:
+
+\begin{align}
+r_t
+&=
+\alpha_j \frac{Y_{j,t}}{K_{j,t}},
+\\
+w_t
+&=
+\beta_j \frac{Y_{j,t}}{L_{j,t}},
+\\
+P_{E,j,t}
+&=
+(1-\alpha_j-\beta_j)
+\frac{Y_{j,t}}{E_{j,t}}.
+\end{align}
+
+Under perfect competition and constant returns to scale:
+
+\begin{align}
+\Pi_{j,t}=0.
+\end{align}
+
+Equivalently:
+
+\begin{align}
+Y_{j,t}
+=
+r_t K_{j,t}
++
+w_t L_{j,t}
++
+P_{E,j,t}E_{j,t}.
+\end{align}
+
+Total final-goods-sector profits are:
+
+\begin{align}
+\Pi^Y_t
+=
+\sum_{j=1}^{2} \Pi_{j,t}.
+\end{align}
+
+\section{Energy Services}
+
+Each final goods sector combines fossil and renewable energy into energy services:
+
+\begin{align}
+E_{j,t}
+=
+\left[
+\omega_j E_{f,j,t}^{\frac{\sigma-1}{\sigma}}
++
+(1-\omega_j)E_{r,j,t}^{\frac{\sigma-1}{\sigma}}
+\right]^{\frac{\sigma}{\sigma-1}}.
+\end{align}
+
+The sector-specific energy price index is:
+
+\begin{align}
+P_{E,j,t}
+=
+\left[
+\omega_j^{\sigma}P_{f,t}^{1-\sigma}
++
+(1-\omega_j)^{\sigma}P_{r,t}^{1-\sigma}
+\right]^{\frac{1}{1-\sigma}}.
+\end{align}
+
+Conditional demand for fossil energy is:
+
+\begin{align}
+E_{f,j,t}
+=
+\omega_j^{\sigma}
+\left(
+\frac{P_{f,t}}{P_{E,j,t}}
+\right)^{-\sigma}
+E_{j,t}.
+\end{align}
+
+Conditional demand for renewable energy is:
+
+\begin{align}
+E_{r,j,t}
+=
+(1-\omega_j)^{\sigma}
+\left(
+\frac{P_{r,t}}{P_{E,j,t}}
+\right)^{-\sigma}
+E_{j,t}.
+\end{align}
+
+\section{Energy Sector}
+
+The energy sector produces fossil and renewable energy using final goods as inputs. Let \(M_{f,t}\) and \(M_{r,t}\) denote final goods used in fossil and renewable energy production.
+
+Fossil energy production is:
+
+\begin{align}
+E_{f,t}
+=
+\frac{z_f}{c_f}M_{f,t}.
+\end{align}
+
+Renewable energy production is:
+
+\begin{align}
+E_{r,t}
+=
+\frac{z_r}{c_r}M_{r,t}.
+\end{align}
+
+Equivalently, the final-goods inputs required for energy production are:
+
+\begin{align}
+M_{f,t}
+=
+\frac{c_f}{z_f}E_{f,t},
+\qquad
+M_{r,t}
+=
+\frac{c_r}{z_r}E_{r,t}.
+\end{align}
+
+Under perfect competition, fossil and renewable energy prices are equal to their marginal private costs:
+
+\begin{align}
+P_{f,t}
+&=
+\frac{c_f}{z_f},
+\\
+P_{r,t}
+&=
+\frac{c_r}{z_r} - s_t.
+\end{align}
+
+The subsidy is assumed to satisfy:
+
+\begin{align}
+0 \leq s_t < \frac{c_r}{z_r}.
+\end{align}
+
+Energy-sector profits are:
+
+\begin{align}
+\Pi^E_t
+=
+P_{f,t}E_{f,t}
++
+P_{r,t}E_{r,t}
+-
+M_{f,t}
+-
+M_{r,t}
++
+s_tE_{r,t}.
+\end{align}
+
+Using the pricing equations and perfect competition:
+
+\begin{align}
+\Pi^E_t = 0.
+\end{align}
+
+Total profits rebated to households are:
+
+\begin{align}
+\Pi_t = \Pi^Y_t + \Pi^E_t.
+\end{align}
+
+\section{Government}
+
+The government subsidizes renewable energy production. The subsidy is financed by a lump-sum tax on households:
+
+\begin{align}
+T_t = s_t E_{r,t}.
+\end{align}
+
+\section{Market Clearing}
+
+Goods market clearing is:
+
+\begin{align}
+Y_t
+=
+C_t
++
+I_t
++
+M_{f,t}
++
+M_{r,t}.
+\end{align}
+
+Using the energy production technologies:
+
+\begin{align}
+Y_t
+=
+C_t
++
+I_t
++
+\frac{c_f}{z_f}E_{f,t}
++
+\frac{c_r}{z_r}E_{r,t}.
+\end{align}
+
+Capital market clearing is:
+
+\begin{align}
+K_t
+=
+K_{1,t}
++
+K_{2,t}.
+\end{align}
+
+Labor market clearing is:
+
+\begin{align}
+L_t
+=
+L_{1,t}
++
+L_{2,t}.
+\end{align}
+
+Fossil energy market clearing is:
+
+\begin{align}
+E_{f,t}
+=
+E_{f,1,t}
++
+E_{f,2,t}.
+\end{align}
+
+Renewable energy market clearing is:
+
+\begin{align}
+E_{r,t}
+=
+E_{r,1,t}
++
+E_{r,2,t}.
+\end{align}
+
+\section{Competitive Equilibrium}
+
+A competitive equilibrium is a sequence of quantities:
+
+\begin{align}
+\{C_t,I_t,K_t,Y_t,Y_{1,t},Y_{2,t},E_{j,t},E_{f,j,t},E_{r,j,t},
+E_{f,t},E_{r,t},M_{f,t},M_{r,t}\},
+\qquad t=0,1,2,\ldots
+\end{align}
+
+and prices:
+
+\begin{align}
+\{w_t,r_t,P_{f,t},P_{r,t},P_{E,j,t}\},
+\qquad t=0,1,2,\ldots
+\end{align}
+
+such that:
+
+\begin{enumerate}
+    \item the household satisfies its budget constraint, capital accumulation equation, and Euler equation;
+    \item final goods firms satisfy their first-order conditions;
+    \item final goods firms minimize the cost of energy services;
+    \item the energy sector satisfies its production and pricing equations;
+    \item the government budget constraint holds;
+    \item goods, capital, labor, fossil energy, and renewable energy markets clear.
+\end{enumerate}
+
+\section{Steady State}
+
+In steady state, all variables are constant over time. The Euler equation implies:
+
+\begin{align}
+r
+=
+\frac{1}{\beta}
+-
+1
++
+\delta.
+\end{align}
+
+Investment satisfies:
+
+\begin{align}
+I = \delta K.
+\end{align}
+
+The steady-state resource constraint is:
+
+\begin{align}
+Y
+=
+C
++
+\delta K
++
+\frac{c_f}{z_f}E_f
++
+\frac{c_r}{z_r}E_r.
+\end{align}
+
+\end{document}
