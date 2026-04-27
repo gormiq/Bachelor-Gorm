@@ -1,7 +1,80 @@
 {"static_model": {"model_local_variables": [], "external_functions_temporary_terms_": [], "temporary_terms_": [], 
 "residuals":[
-{"residual": {"lhs": "y", "rhs": "y*rho+e"}}
+{"residual": {"lhs": "Pf", "rhs": "cf/zf"}}
+, {"residual": {"lhs": "Pr", "rhs": "cr/zr-s"}}
+, {"residual": {"lhs": "PE1", "rhs": "(omega1^sigma*Pf^(1-sigma)+(1-omega1)^sigma*Pr^(1-sigma))^(1/(1-sigma))"}}
+, {"residual": {"lhs": "PE2", "rhs": "(Pf^(1-sigma)*omega2^sigma+Pr^(1-sigma)*(1-omega2)^sigma)^(1/(1-sigma))"}}
+, {"residual": {"lhs": "Y1", "rhs": "A1*K1^alpha1*L1^beta1*(chi*E1)^gamma1"}}
+, {"residual": {"lhs": "Y2", "rhs": "A2*K2^alpha2*L2^beta2*(chi*E2)^gamma2"}}
+, {"residual": {"lhs": "PE1", "rhs": "Y1*gamma1/E1"}}
+, {"residual": {"lhs": "PE2", "rhs": "Y2*gamma2/E2"}}
+, {"residual": {"lhs": "Ef1", "rhs": "E1*omega1^sigma*(Pf/PE1)^(-sigma)"}}
+, {"residual": {"lhs": "Er1", "rhs": "E1*(1-omega1)^sigma*(Pr/PE1)^(-sigma)"}}
+, {"residual": {"lhs": "Ef2", "rhs": "E2*omega2^sigma*(Pf/PE2)^(-sigma)"}}
+, {"residual": {"lhs": "Er2", "rhs": "E2*(1-omega2)^sigma*(Pr/PE2)^(-sigma)"}}
+, {"residual": {"lhs": "Ef", "rhs": "Ef1+Ef2"}}
+, {"residual": {"lhs": "Er", "rhs": "Er1+Er2"}}
+, {"residual": {"lhs": "Y", "rhs": "Y1+Y2"}}
+, {"residual": {"lhs": "T", "rhs": "s*Er"}}
+, {"residual": {"lhs": "I", "rhs": "delta*Kbar"}}
+, {"residual": {"lhs": "Y", "rhs": "I+C+cf/zf*Ef+cr/zr*Er"}}
+, {"residual": {"lhs": "renewable_share", "rhs": "Er/(Ef+Er)"}}
+, {"residual": {"lhs": "dummy", "rhs": "dummy*rho_dummy"}}
 
 ]
-, "external_functions_temporary_terms_jacobian": [], "temporary_terms_jacobian": [], "jacobian": {  "nrows": 1, "ncols": 1, "entries": [{"eq": 1, "col": 1, "var": "y", "val": "1-rho"}
-]}, "external_functions_temporary_terms_hessian": [], "temporary_terms_hessian": [], "hessian": {  "nrows": 1, "ncols": 1, "entries": []}, "external_functions_temporary_terms_third_derivative": [], "temporary_terms_third_derivative": [], "third_derivative": {  "nrows": 1, "ncols": 1, "entries": []}}}
+, "external_functions_temporary_terms_jacobian": [], "temporary_terms_jacobian": [], "jacobian": {  "nrows": 20, "ncols": 20, "entries": [{"eq": 1, "col": 1, "var": "Pf", "val": "1"}
+, {"eq": 2, "col": 2, "var": "Pr", "val": "1"}
+, {"eq": 3, "col": 1, "var": "Pf", "val": "(-(omega1^sigma*get_power_deriv(Pf,1-sigma,1)*get_power_deriv(omega1^sigma*Pf^(1-sigma)+(1-omega1)^sigma*Pr^(1-sigma),1/(1-sigma),1)))"}
+, {"eq": 3, "col": 2, "var": "Pr", "val": "(-(get_power_deriv(omega1^sigma*Pf^(1-sigma)+(1-omega1)^sigma*Pr^(1-sigma),1/(1-sigma),1)*(1-omega1)^sigma*get_power_deriv(Pr,1-sigma,1)))"}
+, {"eq": 3, "col": 3, "var": "PE1", "val": "1"}
+, {"eq": 4, "col": 1, "var": "Pf", "val": "(-(omega2^sigma*get_power_deriv(Pf,1-sigma,1)*get_power_deriv(Pf^(1-sigma)*omega2^sigma+Pr^(1-sigma)*(1-omega2)^sigma,1/(1-sigma),1)))"}
+, {"eq": 4, "col": 2, "var": "Pr", "val": "(-(get_power_deriv(Pf^(1-sigma)*omega2^sigma+Pr^(1-sigma)*(1-omega2)^sigma,1/(1-sigma),1)*(1-omega2)^sigma*get_power_deriv(Pr,1-sigma,1)))"}
+, {"eq": 4, "col": 4, "var": "PE2", "val": "1"}
+, {"eq": 5, "col": 5, "var": "E1", "val": "(-(A1*K1^alpha1*L1^beta1*chi*get_power_deriv(chi*E1,gamma1,1)))"}
+, {"eq": 5, "col": 7, "var": "Y1", "val": "1"}
+, {"eq": 6, "col": 6, "var": "E2", "val": "(-(A2*K2^alpha2*L2^beta2*chi*get_power_deriv(chi*E2,gamma2,1)))"}
+, {"eq": 6, "col": 8, "var": "Y2", "val": "1"}
+, {"eq": 7, "col": 3, "var": "PE1", "val": "1"}
+, {"eq": 7, "col": 5, "var": "E1", "val": "(-((-(Y1*gamma1))/(E1*E1)))"}
+, {"eq": 7, "col": 7, "var": "Y1", "val": "(-(gamma1/E1))"}
+, {"eq": 8, "col": 4, "var": "PE2", "val": "1"}
+, {"eq": 8, "col": 6, "var": "E2", "val": "(-((-(Y2*gamma2))/(E2*E2)))"}
+, {"eq": 8, "col": 8, "var": "Y2", "val": "(-(gamma2/E2))"}
+, {"eq": 9, "col": 1, "var": "Pf", "val": "(-(E1*omega1^sigma*1/PE1*get_power_deriv(Pf/PE1,(-sigma),1)))"}
+, {"eq": 9, "col": 3, "var": "PE1", "val": "(-(E1*omega1^sigma*get_power_deriv(Pf/PE1,(-sigma),1)*(-Pf)/(PE1*PE1)))"}
+, {"eq": 9, "col": 5, "var": "E1", "val": "(-(omega1^sigma*(Pf/PE1)^(-sigma)))"}
+, {"eq": 9, "col": 9, "var": "Ef1", "val": "1"}
+, {"eq": 10, "col": 2, "var": "Pr", "val": "(-(E1*(1-omega1)^sigma*1/PE1*get_power_deriv(Pr/PE1,(-sigma),1)))"}
+, {"eq": 10, "col": 3, "var": "PE1", "val": "(-(E1*(1-omega1)^sigma*get_power_deriv(Pr/PE1,(-sigma),1)*(-Pr)/(PE1*PE1)))"}
+, {"eq": 10, "col": 5, "var": "E1", "val": "(-((1-omega1)^sigma*(Pr/PE1)^(-sigma)))"}
+, {"eq": 10, "col": 10, "var": "Er1", "val": "1"}
+, {"eq": 11, "col": 1, "var": "Pf", "val": "(-(E2*omega2^sigma*1/PE2*get_power_deriv(Pf/PE2,(-sigma),1)))"}
+, {"eq": 11, "col": 4, "var": "PE2", "val": "(-(E2*omega2^sigma*get_power_deriv(Pf/PE2,(-sigma),1)*(-Pf)/(PE2*PE2)))"}
+, {"eq": 11, "col": 6, "var": "E2", "val": "(-(omega2^sigma*(Pf/PE2)^(-sigma)))"}
+, {"eq": 11, "col": 11, "var": "Ef2", "val": "1"}
+, {"eq": 12, "col": 2, "var": "Pr", "val": "(-(E2*(1-omega2)^sigma*1/PE2*get_power_deriv(Pr/PE2,(-sigma),1)))"}
+, {"eq": 12, "col": 4, "var": "PE2", "val": "(-(E2*(1-omega2)^sigma*get_power_deriv(Pr/PE2,(-sigma),1)*(-Pr)/(PE2*PE2)))"}
+, {"eq": 12, "col": 6, "var": "E2", "val": "(-((1-omega2)^sigma*(Pr/PE2)^(-sigma)))"}
+, {"eq": 12, "col": 12, "var": "Er2", "val": "1"}
+, {"eq": 13, "col": 9, "var": "Ef1", "val": "(-1)"}
+, {"eq": 13, "col": 11, "var": "Ef2", "val": "(-1)"}
+, {"eq": 13, "col": 13, "var": "Ef", "val": "1"}
+, {"eq": 14, "col": 10, "var": "Er1", "val": "(-1)"}
+, {"eq": 14, "col": 12, "var": "Er2", "val": "(-1)"}
+, {"eq": 14, "col": 14, "var": "Er", "val": "1"}
+, {"eq": 15, "col": 7, "var": "Y1", "val": "(-1)"}
+, {"eq": 15, "col": 8, "var": "Y2", "val": "(-1)"}
+, {"eq": 15, "col": 15, "var": "Y", "val": "1"}
+, {"eq": 16, "col": 14, "var": "Er", "val": "(-s)"}
+, {"eq": 16, "col": 19, "var": "T", "val": "1"}
+, {"eq": 17, "col": 18, "var": "I", "val": "1"}
+, {"eq": 18, "col": 13, "var": "Ef", "val": "(-(cf/zf))"}
+, {"eq": 18, "col": 14, "var": "Er", "val": "(-(cr/zr))"}
+, {"eq": 18, "col": 15, "var": "Y", "val": "1"}
+, {"eq": 18, "col": 17, "var": "C", "val": "(-1)"}
+, {"eq": 18, "col": 18, "var": "I", "val": "(-1)"}
+, {"eq": 19, "col": 13, "var": "Ef", "val": "(-((-Er)/((Ef+Er)*(Ef+Er))))"}
+, {"eq": 19, "col": 14, "var": "Er", "val": "(-(Ef/((Ef+Er)*(Ef+Er))))"}
+, {"eq": 19, "col": 16, "var": "renewable_share", "val": "1"}
+, {"eq": 20, "col": 20, "var": "dummy", "val": "1-rho_dummy"}
+]}, "external_functions_temporary_terms_hessian": [], "temporary_terms_hessian": [], "hessian": {  "nrows": 20, "ncols": 400, "entries": []}, "external_functions_temporary_terms_third_derivative": [], "temporary_terms_third_derivative": [], "third_derivative": {  "nrows": 20, "ncols": 8000, "entries": []}}}

@@ -4,8 +4,8 @@
 function dynamic_params_derivs(y, x, params, steady_state, it_,ss_param_deriv, ss_param_2nd_deriv)
 @inbounds begin
 T = zeros(0)
-rp = zeros(1, 1);
-gp = zeros(1, 3, 1);
+rp = zeros(20, 23);
+gp = zeros(20, 22, 23);
 end
 return (rp, gp)
 end

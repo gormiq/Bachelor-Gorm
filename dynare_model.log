@@ -1,56 +1,33 @@
 Dynare version: 0.10.4
-2026-04-27T17:57:33.065: Starting @dynare dynare_model.mod
+2026-04-27T18:30:42.854: Starting @dynare dynare_model.mod
 ["dynare_model.mod", "language=julia", "json=compute", "notmpterms"]
 Dynare preprocessor version: 7.0.0+0
-2026-04-27T17:57:33.190: End of preprocessing
-2026-04-27T17:57:33.276: Start parse_statements!
+2026-04-27T18:30:43.026: End of preprocessing
+2026-04-27T18:30:43.052: Start parse_statements!
   Steady state
 
-───┬─────
- y │ 0.0
-───┴─────
+─────────────────┬────────
+       Pf        │  1.0
+              Pr │    1.2
+             PE1 │ 1.7699
+             PE2 │ 2.1739
+              E1 │ 0.0411
+              E2 │ 0.0327
+              Y1 │ 0.7267
+              Y2 │ 0.7103
+             Ef1 │  0.063
+             Er1 │  0.008
+             Ef2 │ 0.0247
+             Er2 │ 0.0386
+              Ef │ 0.0877
+              Er │ 0.0466
+               Y │ 1.4369
+ renewable_share │ 0.3471
+               C │ 1.1332
+               I │   0.16
+               T │    0.0
+           dummy │    0.0
+─────────────────┴────────
 
-  Coefficients of approximate solution function (reduced form)
-
-──────┬─────
-      │ y_t
-────────────
- ϕ(y) │ 0.9
-  e_t │ 1.0
-──────┴─────
-
-  Note: ϕ(x) = x_{t-1} - steady_state(x)
-
-  THEORETICAL MOMENTS
-
-──────────┬───────────────────────────
- VARIABLE │ MEAN  STD. DEV.  VARIANCE
-──────────────────────────────────────
-        y │  0.0     0.0229    0.0005
-──────────┴───────────────────────────
-
-  VARIANCE DECOMPOSITION (in percent)
-
-──────────┬─────
- VARIABLE │  e
-────────────────
-        y │ 1.0
-──────────┴─────
-
-  CORRELATION MATRIX
-
-───┬─────
-   │  y
-─────────
- y │ 1.0
-───┴─────
-
-  AUTOCORRELATION COEFFICIENTS
-
-───┬──────────────────────────────────
-   │  1    2        3       4       5
-──────────────────────────────────────
- y │ 0.9  0.81  0.729  0.6561  0.5905
-───┴──────────────────────────────────
-
-2026-04-27T17:57:44.621: End parser
+2026-04-27T18:30:43.293: End parse_statements!
+2026-04-27T18:30:43.293: End parser
