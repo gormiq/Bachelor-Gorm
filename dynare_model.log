@@ -1,0 +1,56 @@
+Dynare version: 0.10.4
+2026-04-27T17:57:33.065: Starting @dynare dynare_model.mod
+["dynare_model.mod", "language=julia", "json=compute", "notmpterms"]
+Dynare preprocessor version: 7.0.0+0
+2026-04-27T17:57:33.190: End of preprocessing
+2026-04-27T17:57:33.276: Start parse_statements!
+  Steady state
+
+───┬─────
+ y │ 0.0
+───┴─────
+
+  Coefficients of approximate solution function (reduced form)
+
+──────┬─────
+      │ y_t
+────────────
+ ϕ(y) │ 0.9
+  e_t │ 1.0
+──────┴─────
+
+  Note: ϕ(x) = x_{t-1} - steady_state(x)
+
+  THEORETICAL MOMENTS
+
+──────────┬───────────────────────────
+ VARIABLE │ MEAN  STD. DEV.  VARIANCE
+──────────────────────────────────────
+        y │  0.0     0.0229    0.0005
+──────────┴───────────────────────────
+
+  VARIANCE DECOMPOSITION (in percent)
+
+──────────┬─────
+ VARIABLE │  e
+────────────────
+        y │ 1.0
+──────────┴─────
+
+  CORRELATION MATRIX
+
+───┬─────
+   │  y
+─────────
+ y │ 1.0
+───┴─────
+
+  AUTOCORRELATION COEFFICIENTS
+
+───┬──────────────────────────────────
+   │  1    2        3       4       5
+──────────────────────────────────────
+ y │ 0.9  0.81  0.729  0.6561  0.5905
+───┴──────────────────────────────────
+
+2026-04-27T17:57:44.621: End parser
