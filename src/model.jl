@@ -115,3 +115,7 @@ function solve_model(s, params)
         renewable_share = renewable_share
     )
 end
+
+using Dynare
+
+context = @dynare "dynare_model.mod"

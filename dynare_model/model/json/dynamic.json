@@ -1,0 +1,9 @@
+{"dynamic_model": {"model_local_variables": [], "external_functions_temporary_terms_": [], "temporary_terms_": [], 
+"residuals":[
+{"residual": {"lhs": "y", "rhs": "rho*y(-1)+e"}}
+
+]
+, "external_functions_temporary_terms_jacobian": [], "temporary_terms_jacobian": [], "jacobian": {  "nrows": 1, "ncols": 3, "entries": [{"eq": 1, "col": 1, "var": "y", "shift": -1, "val": "(-rho)"}
+, {"eq": 1, "col": 2, "var": "y", "shift": 0, "val": "1"}
+, {"eq": 1, "col": 3, "var": "e", "shift": 0, "val": "(-1)"}
+]}, "external_functions_temporary_terms_hessian": [], "temporary_terms_hessian": [], "hessian": {  "nrows": 1, "ncols": 9, "entries": []}, "external_functions_temporary_terms_third_derivative": [], "temporary_terms_third_derivative": [], "third_derivative": {  "nrows": 1, "ncols": 27, "entries": []}}}
