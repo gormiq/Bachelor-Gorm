@@ -1,32 +1,12 @@
 using Plots
 gr()
 
-function extract_series(results)
-    subsidies = [r.subsidy for r in results]
-    renewable_share = [r.renewable_share for r in results]
-    Y = [r.Y for r in results]
-    Y1 = [r.Y1 for r in results]
-    Y2 = [r.Y2 for r in results]
-    PE1 = [r.PE1 for r in results]
-    PE2 = [r.PE2 for r in results]
-
-    return (
-        subsidies = subsidies,
-        renewable_share = renewable_share,
-        Y = Y,
-        Y1 = Y1,
-        Y2 = Y2,
-        PE1 = PE1,
-        PE2 = PE2
-    )
-end
-
 function plot_renewable_share(results)
-    data = extract_series(results)
+    s = [r.subsidy for r in results]
+    share = [r.renewable_share for r in results]
 
     p = plot(
-        data.subsidies,
-        data.renewable_share;
+        s, share;
         xlabel = "Renewable subsidy, s",
         ylabel = "Renewable share",
         title = "Renewable Energy Share",
@@ -38,15 +18,14 @@ function plot_renewable_share(results)
     display(p)
     savefig(p, "figure1_renewable_share.png")
     println("Saved figure1_renewable_share.png")
-    return p
 end
 
 function plot_aggregate_output(results)
-    data = extract_series(results)
+    s = [r.subsidy for r in results]
+    Y = [r.Y for r in results]
 
     p = plot(
-        data.subsidies,
-        data.Y;
+        s, Y;
         xlabel = "Renewable subsidy, s",
         ylabel = "Aggregate output",
         title = "Aggregate Output",
@@ -58,15 +37,15 @@ function plot_aggregate_output(results)
     display(p)
     savefig(p, "figure2_aggregate_output.png")
     println("Saved figure2_aggregate_output.png")
-    return p
 end
 
 function plot_sectoral_output(results)
-    data = extract_series(results)
+    s = [r.subsidy for r in results]
+    Y1 = [r.Y1 for r in results]
+    Y2 = [r.Y2 for r in results]
 
     p = plot(
-        data.subsidies,
-        data.Y1;
+        s, Y1;
         xlabel = "Renewable subsidy, s",
         ylabel = "Sectoral output",
         title = "Sectoral Output",
@@ -76,9 +55,7 @@ function plot_sectoral_output(results)
     )
 
     plot!(
-        p,
-        data.subsidies,
-        data.Y2;
+        p, s, Y2;
         label = "Sector 2",
         linewidth = 2
     )
@@ -86,15 +63,15 @@ function plot_sectoral_output(results)
     display(p)
     savefig(p, "figure3_sectoral_output.png")
     println("Saved figure3_sectoral_output.png")
-    return p
 end
 
 function plot_energy_prices(results)
-    data = extract_series(results)
+    s = [r.subsidy for r in results]
+    PE1 = [r.PE1 for r in results]
+    PE2 = [r.PE2 for r in results]
 
     p = plot(
-        data.subsidies,
-        data.PE1;
+        s, PE1;
         xlabel = "Renewable subsidy, s",
         ylabel = "Energy price index",
         title = "Sectoral Energy Prices",
@@ -104,9 +81,7 @@ function plot_energy_prices(results)
     )
 
     plot!(
-        p,
-        data.subsidies,
-        data.PE2;
+        p, s, PE2;
         label = "Sector 2",
         linewidth = 2
     )
@@ -114,31 +89,27 @@ function plot_energy_prices(results)
     display(p)
     savefig(p, "figure4_sectoral_energy_prices.png")
     println("Saved figure4_sectoral_energy_prices.png")
-    return p
 end
 
-
-
-
 function plot_sensitivity_sigma(results_base, results_low)
-    data_base = extract_series(results_base)
-    data_low = extract_series(results_low)
+    s_base = [r.subsidy for r in results_base]
+    share_base = [r.renewable_share for r in results_base]
+
+    s_low = [r.subsidy for r in results_low]
+    share_low = [r.renewable_share for r in results_low]
 
     p = plot(
-        data_base.subsidies,
-        data_base.renewable_share;
-        label = "σ = 2 (baseline)",
-        linewidth = 2,
+        s_base, share_base;
         xlabel = "Renewable subsidy, s",
         ylabel = "Renewable share",
         title = "Sensitivity to Elasticity of Substitution",
+        label = "σ = 2 (baseline)",
+        linewidth = 2,
         size = (800, 500)
     )
 
     plot!(
-        p,
-        data_low.subsidies,
-        data_low.renewable_share;
+        p, s_low, share_low;
         label = "σ = 1.2",
         linewidth = 2
     )
@@ -146,6 +117,4 @@ function plot_sensitivity_sigma(results_base, results_low)
     display(p)
     savefig(p, "figure5_sensitivity_sigma.png")
     println("Saved figure5_sensitivity_sigma.png")
-
-    return p
 end

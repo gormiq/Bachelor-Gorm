@@ -116,6 +116,8 @@ function solve_model(s, params)
     )
 end
 
+###to jest do puszczenia dynare_model.mod###
+
 using Dynare
 
 context = @dynare "dynare_model.mod"

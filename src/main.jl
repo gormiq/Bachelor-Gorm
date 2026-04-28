@@ -10,7 +10,7 @@ plot_aggregate_output(results)
 plot_sectoral_output(results)
 plot_energy_prices(results) 
 
-###robie sensitivity analysis 
+###sensitivity analysis 
 
 params_base = baseline_parameters()
 
