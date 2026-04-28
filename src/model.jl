@@ -17,7 +17,8 @@ function baseline_parameters()
         K1 = 1.0,
         K2 = 1.0,
         L1 = 1.0,
-        L2 = 1.0
+        L2 = 1.0,
+        delta = 0.08
     )
 end
 
@@ -93,6 +94,14 @@ function solve_model(s, params)
     Er_total = sector1.Er + sector2.Er
     Y_total = sector1.Y + sector2.Y
 
+    K_total = params.K1 + params.K2
+    I = params.delta * K_total
+
+    energy_cost = (params.cf / params.zf) * Ef_total + (params.cr / params.zr) * Er_total
+    C = Y_total - I - energy_cost
+
+    T = s * Er_total
+
     renewable_share = Er_total / (Ef_total + Er_total)
 
     return (
@@ -102,6 +111,9 @@ function solve_model(s, params)
         Y1 = sector1.Y,
         Y2 = sector2.Y,
         Y = Y_total,
+        C = C,
+        I = I,
+        T = T,
         PE1 = sector1.PE,
         PE2 = sector2.PE,
         E1 = sector1.E,

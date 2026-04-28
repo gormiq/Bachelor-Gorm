@@ -118,3 +118,25 @@ function plot_sensitivity_sigma(results_base, results_low)
     savefig(p, "figure5_sensitivity_sigma.png")
     println("Saved figure5_sensitivity_sigma.png")
 end
+
+function plot_consumption(results)
+    subsidies = [r.subsidy for r in results]
+    C = [r.C for r in results]
+
+    p = plot(
+        subsidies,
+        C;
+        xlabel = "Renewable subsidy, s",
+        ylabel = "Consumption",
+        title = "Consumption",
+        linewidth = 2,
+        legend = false,
+        size = (800, 500)
+    )
+
+    display(p)
+    savefig(p, "figure6_consumption.png")
+    println("Saved figure6_consumption.png")
+
+    return p
+end

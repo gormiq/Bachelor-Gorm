@@ -9,6 +9,7 @@ plot_renewable_share(results)
 plot_aggregate_output(results)
 plot_sectoral_output(results)
 plot_energy_prices(results) 
+plot_consumption(results)
 
 ###sensitivity analysis 
 
