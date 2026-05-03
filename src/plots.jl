@@ -1,5 +1,31 @@
+##############################################################
+# This file creates and saves plots used in Section 4.
+#
+# Each function takes simulation results as input and produces
+# one figure. The figures are saved as PNG files in the main
+# project folder.
+##############################################################
+
 using Plots
 gr()
+
+
+##############################################################
+# Helper function for saving plots
+##############################################################
+# This avoids repeating display(), savefig(), and println()
+# in every plotting function, because i had this problem before.
+
+function show_and_save(p, filename)
+    display(p)
+    savefig(p, filename)
+    println("Saved ", filename)
+end
+
+
+##############################################################
+# Figure 1: Renewable energy share
+##############################################################
 
 function plot_renewable_share(results)
     s = [r.subsidy for r in results]
@@ -15,10 +41,13 @@ function plot_renewable_share(results)
         size = (800, 500)
     )
 
-    display(p)
-    savefig(p, "figure1_renewable_share.png")
-    println("Saved figure1_renewable_share.png")
+    show_and_save(p, "figure1_renewable_share.png")
 end
+
+
+##############################################################
+# Figure 2: Aggregate output
+##############################################################
 
 function plot_aggregate_output(results)
     s = [r.subsidy for r in results]
@@ -34,10 +63,13 @@ function plot_aggregate_output(results)
         size = (800, 500)
     )
 
-    display(p)
-    savefig(p, "figure2_aggregate_output.png")
-    println("Saved figure2_aggregate_output.png")
+    show_and_save(p, "figure2_aggregate_output.png")
 end
+
+
+##############################################################
+# Figure 3: Sectoral output
+##############################################################
 
 function plot_sectoral_output(results)
     s = [r.subsidy for r in results]
@@ -60,10 +92,13 @@ function plot_sectoral_output(results)
         linewidth = 2
     )
 
-    display(p)
-    savefig(p, "figure3_sectoral_output.png")
-    println("Saved figure3_sectoral_output.png")
+    show_and_save(p, "figure3_sectoral_output.png")
 end
+
+
+##############################################################
+# Figure 4: Sector-specific energy price indices
+##############################################################
 
 function plot_energy_prices(results)
     s = [r.subsidy for r in results]
@@ -86,10 +121,15 @@ function plot_energy_prices(results)
         linewidth = 2
     )
 
-    display(p)
-    savefig(p, "figure4_sectoral_energy_prices.png")
-    println("Saved figure4_sectoral_energy_prices.png")
+    show_and_save(p, "figure4_sectoral_energy_prices.png")
 end
+
+
+##############################################################
+# Figure 5: Sensitivity analysis
+##############################################################
+# This compares the baseline elasticity of substitution
+# with a lower value of sigma.
 
 function plot_sensitivity_sigma(results_base, results_low)
     s_base = [r.subsidy for r in results_base]
@@ -103,29 +143,31 @@ function plot_sensitivity_sigma(results_base, results_low)
         xlabel = "Renewable subsidy, s",
         ylabel = "Renewable share",
         title = "Sensitivity to Elasticity of Substitution",
-        label = "σ = 2 (baseline)",
+        label = "sigma = 2 (baseline)",
         linewidth = 2,
         size = (800, 500)
     )
 
     plot!(
         p, s_low, share_low;
-        label = "σ = 1.2",
+        label = "sigma = 1.2",
         linewidth = 2
     )
 
-    display(p)
-    savefig(p, "figure5_sensitivity_sigma.png")
-    println("Saved figure5_sensitivity_sigma.png")
+    show_and_save(p, "figure5_sensitivity_sigma.png")
 end
 
+
+##############################################################
+# Figure 6: Consumption
+##############################################################
+
 function plot_consumption(results)
-    subsidies = [r.subsidy for r in results]
+    s = [r.subsidy for r in results]
     C = [r.C for r in results]
 
     p = plot(
-        subsidies,
-        C;
+        s, C;
         xlabel = "Renewable subsidy, s",
         ylabel = "Consumption",
         title = "Consumption",
@@ -134,9 +176,5 @@ function plot_consumption(results)
         size = (800, 500)
     )
 
-    display(p)
-    savefig(p, "figure6_consumption.png")
-    println("Saved figure6_consumption.png")
-
-    return p
+    show_and_save(p, "figure6_consumption.png")
 end
