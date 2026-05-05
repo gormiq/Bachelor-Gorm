@@ -1,9 +1,9 @@
 Dynare version: 0.10.4
-2026-05-03T19:53:26.151: Starting @dynare dynare_model.mod
+2026-05-05T12:38:27.345: Starting @dynare dynare_model.mod
 ["dynare_model.mod", "language=julia", "json=compute", "notmpterms"]
 Dynare preprocessor version: 7.0.0+0
-2026-05-03T19:53:26.217: End of preprocessing
-2026-05-03T19:53:26.291: Start parse_statements!
+2026-05-05T12:38:27.500: End of preprocessing
+2026-05-05T12:38:27.571: Start parse_statements!
   Steady state
 
 ─────────────────┬────────
@@ -22,12 +22,12 @@ Dynare preprocessor version: 7.0.0+0
               Ef │ 0.0877
               Er │ 0.0466
                Y │ 1.4369
- renewable_share │ 0.3471
                C │ 1.1332
                I │   0.16
                T │    0.0
+ renewable_share │ 0.3471
            dummy │    0.0
 ─────────────────┴────────
 
-2026-05-03T19:53:32.510: End parse_statements!
-2026-05-03T19:53:32.511: End parser
+2026-05-05T12:38:33.044: End parse_statements!
+2026-05-05T12:38:33.044: End parser

@@ -67,17 +67,17 @@
 , {"eq": 15, "col": 9, "var": "Y2", "shift": 0, "val": "(-1)"}
 , {"eq": 15, "col": 16, "var": "Y", "shift": 0, "val": "1"}
 , {"eq": 16, "col": 15, "var": "Er", "shift": 0, "val": "(-s)"}
-, {"eq": 16, "col": 20, "var": "T", "shift": 0, "val": "1"}
+, {"eq": 16, "col": 19, "var": "T", "shift": 0, "val": "1"}
 , {"eq": 16, "col": 22, "var": "s", "shift": 0, "val": "(-Er)"}
-, {"eq": 17, "col": 19, "var": "I", "shift": 0, "val": "1"}
+, {"eq": 17, "col": 18, "var": "I", "shift": 0, "val": "1"}
 , {"eq": 18, "col": 14, "var": "Ef", "shift": 0, "val": "(-(cf/zf))"}
 , {"eq": 18, "col": 15, "var": "Er", "shift": 0, "val": "(-(cr/zr))"}
 , {"eq": 18, "col": 16, "var": "Y", "shift": 0, "val": "1"}
-, {"eq": 18, "col": 18, "var": "C", "shift": 0, "val": "(-1)"}
-, {"eq": 18, "col": 19, "var": "I", "shift": 0, "val": "(-1)"}
+, {"eq": 18, "col": 17, "var": "C", "shift": 0, "val": "(-1)"}
+, {"eq": 18, "col": 18, "var": "I", "shift": 0, "val": "(-1)"}
 , {"eq": 19, "col": 14, "var": "Ef", "shift": 0, "val": "(-((-Er)/((Ef+Er)*(Ef+Er))))"}
 , {"eq": 19, "col": 15, "var": "Er", "shift": 0, "val": "(-(Ef/((Ef+Er)*(Ef+Er))))"}
-, {"eq": 19, "col": 17, "var": "renewable_share", "shift": 0, "val": "1"}
+, {"eq": 19, "col": 20, "var": "renewable_share", "shift": 0, "val": "1"}
 , {"eq": 20, "col": 1, "var": "dummy", "shift": -1, "val": "(-rho_dummy)"}
 , {"eq": 20, "col": 21, "var": "dummy", "shift": 0, "val": "1"}
 ]}, "external_functions_temporary_terms_hessian": [], "temporary_terms_hessian": [], "hessian": {  "nrows": 20, "ncols": 484, "entries": [{"eq": 3, "col": [24], "var1": "Pf", "shift1": 0, "var2": "Pf", "shift2": 0, "val": "(-(get_power_deriv(omega1^sigma*Pf^(1-sigma)+(1-omega1)^sigma*Pr^(1-sigma),1/(1-sigma),1)*omega1^sigma*get_power_deriv(Pf,1-sigma,2)+omega1^sigma*get_power_deriv(Pf,1-sigma,1)*omega1^sigma*get_power_deriv(Pf,1-sigma,1)*get_power_deriv(omega1^sigma*Pf^(1-sigma)+(1-omega1)^sigma*Pr^(1-sigma),1/(1-sigma),2)))"}
