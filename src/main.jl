@@ -38,7 +38,6 @@ plot_sectoral_output(results)
 plot_energy_prices(results)
 plot_consumption(results)
 
-
 ###############################################################
 # Sensitivity analysis
 ###############################################################
@@ -69,3 +68,20 @@ results_low = run_simulation(
 # Figure for sensitivity analysis
 
 plot_sensitivity_sigma(results_base, results_low)
+
+###############################################################
+# Sensitivity analysis — omega (sectoral energy composition)
+###############################################################
+# We compare three scenarios:
+# - small difference:   omega1 = 0.6, omega2 = 0.5
+# - baseline:           omega1 = 0.7, omega2 = 0.4
+# - large difference:   omega1 = 0.9, omega2 = 0.2
+
+params_omega_small = merge(params_base, (omega1 = 0.6, omega2 = 0.5))
+params_omega_large = merge(params_base, (omega1 = 0.9, omega2 = 0.2))
+
+results_omega_small = run_simulation(params_omega_small, s_min = 0.0, s_max = 0.5, n = 6)
+results_omega_large = run_simulation(params_omega_large, s_min = 0.0, s_max = 0.5, n = 6)
+
+plot_sensitivity_omega_gap(results_omega_small, results_base, results_omega_large)
+plot_sensitivity_omega_share(results_omega_small, results_base, results_omega_large)

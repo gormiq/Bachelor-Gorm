@@ -178,3 +178,59 @@ function plot_consumption(results)
 
     show_and_save(p, "figure6_consumption.png")
 end
+
+##############################################################
+# Figure 7: Sectoral output gap — sensitivity to omega
+##############################################################
+# Y2 - Y1 measures the asymmetry between sectors.
+# A larger gap means stronger reallocation toward Sector 2.
+# We compare three scenarios differing in sectoral heterogeneity.
+
+function plot_sensitivity_omega_gap(results_small, results_base, results_large)
+    s = [r.subsidy for r in results_base]
+
+    gap_small = [r.Y2 - r.Y1 for r in results_small]
+    gap_base  = [r.Y2 - r.Y1 for r in results_base]
+    gap_large = [r.Y2 - r.Y1 for r in results_large]
+
+    p = plot(
+        s, gap_small;
+        xlabel = "Renewable subsidy, s",
+        ylabel = "Y2 - Y1",
+        title  = "Sectoral Output Gap",
+        label  = "Small difference (ω₁=0.6, ω₂=0.5)",
+        linewidth = 2,
+        size = (800, 500)
+    )
+    plot!(p, s, gap_base;  label = "Baseline (ω₁=0.7, ω₂=0.4)", linewidth = 2)
+    plot!(p, s, gap_large; label = "Large difference (ω₁=0.9, ω₂=0.2)", linewidth = 2)
+
+    show_and_save(p, "figure7_sensitivity_omega_gap.png")
+end
+
+
+##############################################################
+# Figure 8: Renewable share — sensitivity to omega
+##############################################################
+
+function plot_sensitivity_omega_share(results_small, results_base, results_large)
+    s = [r.subsidy for r in results_base]
+
+    share_small = [r.renewable_share for r in results_small]
+    share_base  = [r.renewable_share for r in results_base]
+    share_large = [r.renewable_share for r in results_large]
+
+    p = plot(
+        s, share_small;
+        xlabel = "Renewable subsidy, s",
+        ylabel = "Renewable share",
+        title  = "Renewable Share — Sensitivity to Sectoral Heterogeneity",
+        label  = "Small difference (ω₁=0.6, ω₂=0.5)",
+        linewidth = 2,
+        size = (800, 500)
+    )
+    plot!(p, s, share_base;  label = "Baseline (ω₁=0.7, ω₂=0.4)", linewidth = 2)
+    plot!(p, s, share_large; label = "Large difference (ω₁=0.9, ω₂=0.2)", linewidth = 2)
+
+    show_and_save(p, "figure8_sensitivity_omega_share.png")
+end
