@@ -1,27 +1,25 @@
 //=================================================================
-// This file implements the steady-state equilibrium of the model
-// described in Sections 3.1–3.11 of the thesis.
+// dynare_model.mod
 //
-// IMPORTANT SIMPLIFICATIONS vs. the full theoretical model:
-//   1. The model is STATIC (comparative statics only).
-//      The household Euler equation and capital accumulation
-//      are not solved dynamically. We jump directly to the
-//      steady state implied by the theory (Section 3.11).
-//   2. Capital (K) and labor (L) are FIXED PARAMETERS in each
-//      sector. Factor markets (r, w) are not explicitly cleared.
-//      This means we do not endogenously allocate K and L across
-//      sectors, their allocation is taken as given.
-//   3. The dummy AR(1) variable is a technical requirement of
-//      Dynare: the software needs at least one lagged variable
-//      to build a dynamic system. It has no economic meaning.
+// Full steady-state neoclassical general equilibrium model
+// with renewable energy subsidies.
 //
-// Structure of the file:
-//   1. Variable declarations
-//   2. Exogenous variable (policy instrument)
-//   3. Parameter declarations and calibration
-//   4. Model equations
-//   5. Initial values (steady state at s = 0, from Julia)
-//   6. Steady-state solver call
+// Economic structure:
+//   1. Representative household
+//   2. Competitive final-good producer
+//   3. Two intermediate goods sectors
+//   4. Fossil and renewable energy
+//   5. Renewable energy subsidy financed by lump-sum taxes
+//
+// The model is solved in steady state.
+// It is not a transition-dynamics DSGE model.
+//
+// The household Euler equation is imposed in steady-state form:
+//
+//     r = 1 / beta - 1 + delta
+//
+// The policy variable is the renewable energy subsidy s.
+// The baseline steady state uses s = 0.
 //=================================================================
 
 
@@ -30,232 +28,441 @@
 //=================================================================
 
 var
+    // Energy prices
+    Pf
+    Pr
 
-    //==========Energy prices (Section 3.4)===========
-    Pf          // fossil energy price:    Pf = cf / zf
-    Pr          // renewable energy price: Pr = cr / zr - s
+    // Sector-specific energy price indices
+    PE1
+    PE2
 
-    //==========Sector-specific CES energy price indices (Section 3.3)===========
-    PE1         // energy price index in sector 1 (fossil-intensive)
-    PE2         // energy price index in sector 2 (renewable-intensive)
+    // Energy services used by intermediate sectors
+    E1
+    E2
 
-    //==========Energy services demanded by each sector (Section 3.3)===========
-    E1          // total energy services in sector 1
-    E2          // total energy services in sector 2
+    // Output of intermediate goods sectors
+    Y1
+    Y2
 
-    //==========Sectoral output (Section 3.2)===========
-    Y1          // gross output of sector 1
-    Y2          // gross output of sector 2
+    // Aggregate final output
+    Y
 
-    //==========Energy mix by sector (Section 3.3)===========
-    Ef1         // fossil energy demand in sector 1
-    Er1         // renewable energy demand in sector 1
-    Ef2         // fossil energy demand in sector 2
-    Er2         // renewable energy demand in sector 2
+    // Prices of intermediate goods
+    P1
+    P2
 
-    //==========Aggregate energy (Section 3.4 market clearing)===========
-    Ef          // total fossil energy:    Ef = Ef1 + Ef2
-    Er          // total renewable energy: Er = Er1 + Er2
+    // Capital and labor
+    K1
+    K2
+    K
+    L1
+    L2
+    L
 
-    //==========Aggregate quantities (Sections 3.6–3.8)===========
-    Y           // aggregate output:   Y = Y1 + Y2
-    C           // private consumption
-    I           // investment = delta * K  (steady-state condition)
-    T           // lump-sum tax = s * Er   (government budget)
+    // Household and aggregate variables
+    C
+    I
+    r
+    w
 
-    //==========Key policy outcome===========
-    renewable_share   // share of renewables in total energy: Er/(Ef+Er)
+    // Fossil and renewable energy demand by sector
+    Ef1
+    Er1
+    Ef2
+    Er2
 
-    //==========Technical variable (no economic content)===========
-    dummy;      // AR(1) placeholder required by Dynare
+    // Aggregate fossil and renewable energy
+    Ef
+    Er
+
+    // Final-good resources used in energy production
+    Mf
+    Mr
+
+    // Government
+    T
+
+    // Main policy outcome
+    renewable_share
+
+    // Technical variable without economic meaning
+    dummy
+;
 
 
 //=================================================================
-// 2. Exogenous variable — the policy instrument
+// 2. Exogenous policy variable
 //=================================================================
 
-varexo s;       // renewable energy subsidy
-                // Admissible range: 0 <= s < cr/zr  (price must stay positive)
+varexo s;
 
 
 //=================================================================
-// 3. Parameters and calibration
+// 3. Parameters
 //=================================================================
-// All values correspond to baseline_parameters() in model.jl.
 
 parameters
-    // Production function parameters (Section 3.2)
-    alpha1      // capital share in sector 1
-    beta1       // labor share in sector 1
-    gamma1      // energy share in sector 1  (= 1 - alpha1 - beta1, set below)
-    alpha2      // capital share in sector 2
-    beta2       // labor share in sector 2
-    gamma2      // energy share in sector 2  (= 1 - alpha2 - beta2, set below)
+    // Production parameters in intermediate sectors
+    alpha1
+    beta1
+    gamma1
+
+    alpha2
+    beta2
+    gamma2
 
     // Productivity
-    A1          // TFP in sector 1
-    A2          // TFP in sector 2
-    chi         // energy efficiency parameter (Section 3.2)
+    A1
+    A2
+    chi
 
-    // CES energy aggregator (Section 3.3)
-    sigma       // elasticity of substitution between fossil and renewable
-    omega1      // fossil weight in sector 1  (higher => more fossil-intensive)
-    omega2      // fossil weight in sector 2  (lower  => more renewable-intensive)
+    // Final-good aggregator parameter
+    theta
 
-    // Energy sector cost and productivity (Section 3.4)
-    cf          // unit cost parameter, fossil energy production
-    cr          // unit cost parameter, renewable energy production
-    zf          // productivity in fossil energy production
-    zr          // productivity in renewable energy production
+    // Energy CES parameters
+    sigma
+    omega1
+    omega2
 
-    // Fixed factor endowments per sector (simplification — see note above)
-    K1 K2       // capital in sectors 1 and 2
-    L1 L2       // labor  in sectors 1 and 2
-    Kbar        // total capital stock  (= K1 + K2, used for investment)
+    // Energy sector cost and productivity
+    cf
+    cr
+    zf
+    zr
 
-    // Capital and steady state
-    delta       // depreciation rate (Section 3.1)
+    // Household / steady-state parameters
+    beta
+    delta
+    Lbar
 
-    // Technical parameter for the dummy equation
-    rho_dummy;
+    // Technical parameter
+    rho_dummy
+;
 
-//==========Calibration===========
+
+//=================================================================
+// 4. Calibration
+//=================================================================
+
+//---------------------------------------------------------------
+// Intermediate goods production
+//---------------------------------------------------------------
+
 alpha1 = 0.30;
 beta1  = 0.60;
-gamma1 = 1 - alpha1 - beta1;   // = 0.10  (energy share, sector 1)
+gamma1 = 1 - alpha1 - beta1;
 
 alpha2 = 0.30;
 beta2  = 0.60;
-gamma2 = 1 - alpha2 - beta2;   // = 0.10  (energy share, sector 2)
+gamma2 = 1 - alpha2 - beta2;
+
+//---------------------------------------------------------------
+// Productivity
+//---------------------------------------------------------------
 
 A1  = 1.0;
 A2  = 1.0;
+
+// Energy efficiency
 chi = 1.0;
 
-sigma  = 2.0;
-omega1 = 0.7;   // sector 1: more fossil-oriented
-omega2 = 0.4;   // sector 2: more renewable-oriented
+//---------------------------------------------------------------
+// Final-good aggregator
+//---------------------------------------------------------------
+// theta = 0.5 means both sectoral goods have equal weight.
 
-cf = 1.0;   cr = 1.2;
-zf = 1.0;   zr = 1.0;
+theta = 0.50;
 
-K1 = 1.0;   K2 = 1.0;
-L1 = 1.0;   L2 = 1.0;
-Kbar = K1 + K2;
+//---------------------------------------------------------------
+// Energy CES
+//---------------------------------------------------------------
+// sigma > 1 means fossil and renewable energy are substitutable.
+// Do not set sigma = 1 in this formulation.
 
-delta     = 0.08;
+sigma = 2.0;
+
+// Sector 1 is more fossil-oriented.
+// Sector 2 is more renewable-oriented.
+
+omega1 = 0.70;
+omega2 = 0.40;
+
+//---------------------------------------------------------------
+// Energy sector
+//---------------------------------------------------------------
+// Renewable energy is more costly in the baseline calibration.
+
+cf = 1.0;
+cr = 1.2;
+
+zf = 1.0;
+zr = 1.0;
+
+//---------------------------------------------------------------
+// Household / steady state
+//---------------------------------------------------------------
+
+beta  = 0.96;
+delta = 0.08;
+
+// Labor normalization
+Lbar = 1.0;
+
+//---------------------------------------------------------------
+// Technical dummy parameter
+//---------------------------------------------------------------
+
 rho_dummy = 0.5;
 
 
 //=================================================================
-// 4. Model equations
+// 5. Model equations
 //=================================================================
-// There are 20 endogenous variables and 20 equations below.
-// The model is solved for the steady state.
 
 model;
 
-//==========[1-2] Energy prices (Section 3.4)===========
-// Fossil: marginal cost of production cf/zf, no subsidy
-// Renewable: marginal cost cr/zr reduced by the subsidy s
+
+//=================================================================
+// Energy prices
+//=================================================================
+// Fossil energy price equals unit production cost.
+// Renewable energy price is reduced by the subsidy.
+
 Pf = cf / zf;
+
 Pr = cr / zr - s;
 
-//==========[3-4] CES energy price indices (Section 3.3)===========
-// PE_j is the minimum cost of obtaining one unit of energy
-// services in sector j, given the fossil/renewable price mix.
-PE1 = ( omega1^sigma * Pf^(1-sigma) + (1-omega1)^sigma * Pr^(1-sigma) )^(1/(1-sigma));
-PE2 = ( omega2^sigma * Pf^(1-sigma) + (1-omega2)^sigma * Pr^(1-sigma) )^(1/(1-sigma));
 
-//==========[5-6] Sectoral output — Cobb-Douglas (Section 3.2)===========
+//=================================================================
+// Sector-specific energy price indices
+//=================================================================
+// These are CES unit cost indices for energy services.
+
+PE1 =
+(
+    omega1^sigma * Pf^(1 - sigma)
+    +
+    (1 - omega1)^sigma * Pr^(1 - sigma)
+)^(1 / (1 - sigma));
+
+PE2 =
+(
+    omega2^sigma * Pf^(1 - sigma)
+    +
+    (1 - omega2)^sigma * Pr^(1 - sigma)
+)^(1 / (1 - sigma));
+
+
+//=================================================================
+// Final-good producer
+//=================================================================
+// The two sectoral goods are not perfect substitutes.
+// Aggregate output is a Cobb-Douglas composite.
+
+Y = Y1^theta * Y2^(1 - theta);
+
+// Sectoral prices come from the final-good producer's FOCs.
+// The final good is the numeraire.
+
+P1 = theta * Y / Y1;
+
+P2 = (1 - theta) * Y / Y2;
+
+
+//=================================================================
+// Intermediate goods production
+//=================================================================
+// Each sector uses capital, labor, and energy services.
+
 Y1 = A1 * K1^alpha1 * L1^beta1 * (chi * E1)^gamma1;
+
 Y2 = A2 * K2^alpha2 * L2^beta2 * (chi * E2)^gamma2;
 
-//==========[7-8] FOC for energy demand (Section 3.2)===========
-// From profit maximisation: PE_j = (1 - alpha_j - beta_j) * Y_j / E_j
-// Combined with the production function, this pins down E_j.
-// Note: equations [5-6] and [7-8] form a 2x2 system in (Y_j, E_j).
-PE1 = gamma1 * Y1 / E1;
-PE2 = gamma2 * Y2 / E2;
 
-//==========[9-12] Conditional energy mix — CES cost minimisation (Section 3.3)===========
-// Given total energy services E_j, firms minimise cost by
-// splitting between fossil and renewable according to relative prices.
-Ef1 = omega1^sigma     * (Pf / PE1)^(-sigma) * E1;
-Er1 = (1-omega1)^sigma * (Pr / PE1)^(-sigma) * E1;
-Ef2 = omega2^sigma     * (Pf / PE2)^(-sigma) * E2;
-Er2 = (1-omega2)^sigma * (Pr / PE2)^(-sigma) * E2;
+//=================================================================
+// Capital and labor first-order conditions
+//=================================================================
+// Factor prices equal value marginal products.
+// The sectoral price Pj matters because Y1 and Y2 are intermediate goods.
 
-//==========[13-14] Energy market clearing (Section 3.4)===========
+K1 = P1 * alpha1 * Y1 / (r + delta);
+K2 = P2 * alpha2 * Y2 / (r + delta);
+
+
+L1 = P1 * beta1 * Y1 / w;
+L2 = P2 * beta2 * Y2 / w;
+
+
+
+//=================================================================
+// Energy first-order conditions
+//=================================================================
+// Energy price indices equal value marginal products of energy.
+
+E1 = P1 * gamma1 * Y1 / PE1;
+E2 = P2 * gamma2 * Y2 / PE2;
+
+
+//=================================================================
+// Conditional fossil and renewable energy demands
+//=================================================================
+// These equations come from CES cost minimization.
+// They are the dual representation of the energy aggregator.
+
+Ef1 = omega1^sigma * (Pf / PE1)^(-sigma) * E1;
+
+Er1 = (1 - omega1)^sigma * (Pr / PE1)^(-sigma) * E1;
+
+Ef2 = omega2^sigma * (Pf / PE2)^(-sigma) * E2;
+
+Er2 = (1 - omega2)^sigma * (Pr / PE2)^(-sigma) * E2;
+
+
+//=================================================================
+// Energy market clearing
+//=================================================================
+
 Ef = Ef1 + Ef2;
+
 Er = Er1 + Er2;
 
-//==========[15] Output aggregation (Section 3.2)===========
-Y = Y1 + Y2;
 
-//==========[16] Government budget constraint (Section 3.5)===========
-// Subsidy payments to renewable producers are financed by lump-sum taxes.
+//=================================================================
+// Energy production technologies
+//=================================================================
+// Mf and Mr are final-good resources used to produce energy.
+
+Ef = (zf / cf) * Mf;
+
+Er = (zr / cr) * Mr;
+
+
+//=================================================================
+// Factor market clearing
+//=================================================================
+
+K = K1 + K2;
+
+L = L1 + L2;
+
+L = Lbar;
+
+
+//=================================================================
+// Steady-state Euler condition
+//=================================================================
+// This is the steady-state version of the household Euler equation.
+
+r = 1 / beta - 1 + delta;
+
+
+//=================================================================
+// Steady-state investment
+//=================================================================
+
+I = delta * K;
+
+
+//=================================================================
+// Aggregate resource constraint
+//=================================================================
+// Final output is used for consumption, investment,
+// and energy production inputs.
+
+C = Y - I - Mf - Mr;
+
+
+//=================================================================
+// Government budget constraint
+//=================================================================
+// Renewable energy subsidies are financed by lump-sum taxes.
+
 T = s * Er;
 
-//==========[17] Steady-state investment (Section 3.8)===========
-// In steady state: I = delta * K  (from the Euler equation + law of motion)
-I = delta * Kbar;
 
-//==========[18] Goods market clearing / resource constraint (Section 3.6)===========
-// Output is split between consumption, investment, and energy production costs.
-// Energy costs use FULL prices cf/zf and cr/zr (not the subsidised Pr),
-// because subsidies are pure transfers — not real resource costs.
-Y = C + I + (cf/zf)*Ef + (cr/zr)*Er;
+//=================================================================
+// Renewable share
+//=================================================================
 
-//==========[19] Renewable energy share===========
 renewable_share = Er / (Ef + Er);
 
-//==========[20] Dummy dynamic equation (technical, no economic content)===========
+
+//=================================================================
+// Technical dummy equation
+//=================================================================
+// This equation has no economic meaning.
+// It only gives Dynare.jl one lagged variable.
+
 dummy = rho_dummy * dummy(-1);
+
 
 end;
 
 
 //=================================================================
-// 5. Initial values for the steady-state solver
+// 6. Initial values
 //=================================================================
-// These are approximate values at s = 0, computed in Julia (model.jl).
-// Dynare's 'steady' command will refine them numerically.
+// These values correspond to the baseline no-subsidy steady state.
+// They are used only as starting values for the nonlinear solver.
+//=================================================================
 
 initval;
-    s  = 0.0;
+
+    s = 0.0;
 
     Pf = 1.0;
     Pr = 1.2;
 
-    PE1 = 1.77;
-    PE2 = 2.17;
+    PE1 = 1.7699115;
+    PE2 = 2.1739130;
 
-    E1 = 0.041;
-    E2 = 0.033;
+    E1 = 0.0085083;
+    E2 = 0.0069271;
 
-    Y1 = 0.727;
-    Y2 = 0.710;
+    Y1 = 0.3042915;
+    Y2 = 0.2980992;
+    Y  = 0.3011795;
 
-    Ef1 = 0.063;   Er1 = 0.008;
-    Ef2 = 0.025;   Er2 = 0.039;
+    P1 = 0.4948863;
+    P2 = 0.5051665;
 
-    Ef  = 0.088;
-    Er  = 0.047;
+    K1 = 0.3713171;
+    K2 = 0.3713171;
+    K  = 0.7426343;
 
-    Y  = 1.437;
-    C  = 1.190;
-    I  = 0.160;
-    T  = 0.000;
+    L1 = 0.5000000;
+    L2 = 0.5000000;
+    L  = 1.0000000;
 
-    renewable_share = 0.347;
+    C = 0.2116508;
+    I = 0.0594107;
+
+    r = 0.1216667;
+    w = 0.1807077;
+
+    Ef1 = 0.0130600;
+    Er1 = 0.0016658;
+
+    Ef2 = 0.0052379;
+    Er2 = 0.0081842;
+
+    Ef = 0.0182979;
+    Er = 0.0098500;
+
+    Mf = 0.0182979;
+    Mr = 0.0118200;
+
+    T = 0.0000000;
+
+    renewable_share = 0.3499382;
 
     dummy = 0.0;
+
 end;
 
 
 //=================================================================
-// 6. Solve for the steady state
+// 7. Solve steady state
 //=================================================================
 
 steady;
