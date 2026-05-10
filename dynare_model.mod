@@ -285,8 +285,8 @@ Y2 = A2 * K2^alpha2 * L2^beta2 * (chi * E2)^gamma2;
 // Factor prices equal value marginal products.
 // The sectoral price Pj matters because Y1 and Y2 are intermediate goods.
 
-K1 = P1 * alpha1 * Y1 / (r + delta);
-K2 = P2 * alpha2 * Y2 / (r + delta);
+K1 = P1 * alpha1 * Y1 / r;
+K2 = P2 * alpha2 * Y2 / r;
 
 
 L1 = P1 * beta1 * Y1 / w;
@@ -419,26 +419,27 @@ initval;
     E1 = 0.0085083;
     E2 = 0.0069271;
 
-    Y1 = 0.3042915;
-    Y2 = 0.2980992;
-    Y  = 0.3011795;
+    Y1 = 0.4295;
+    Y2 = 0.4224;
+    Y  = 0.4259;
 
     P1 = 0.4948863;
     P2 = 0.5051665;
 
-    K1 = 0.3713171;
-    K2 = 0.3713171;
-    K  = 0.7426343;
+    K1 = 0.5251;
+    K2 = 0.5251;
+    K  = 1.0502;
 
     L1 = 0.5000000;
     L2 = 0.5000000;
     L  = 1.0000000;
 
-    C = 0.2116508;
-    I = 0.0594107;
+    C  = 0.2993;
+    I  = 0.0840;
+
 
     r = 0.1216667;
-    w = 0.1807077;
+    w  = 0.1278;
 
     Ef1 = 0.0130600;
     Er1 = 0.0016658;
