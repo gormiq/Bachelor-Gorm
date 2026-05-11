@@ -1,45 +1,45 @@
 Dynare version: 0.10.4
-2026-05-10T15:19:01.897: Starting @dynare dynare_model.mod
+2026-05-11T21:25:04.608: Starting @dynare dynare_model.mod
 ["dynare_model.mod", "language=julia", "json=compute", "notmpterms"]
 Dynare preprocessor version: 7.0.0+0
-2026-05-10T15:19:02.177: End of preprocessing
-2026-05-10T15:19:02.263: Start parse_statements!
+2026-05-11T21:25:04.724: End of preprocessing
+2026-05-11T21:25:04.810: Start parse_statements!
   Steady state
 
 ─────────────────┬────────
        Pf        │  1.0
-              Pr │    1.2
-             PE1 │ 1.7699
-             PE2 │ 2.1739
-              E1 │ 0.0085
-              E2 │ 0.0069
-              Y1 │ 0.3043
-              Y2 │ 0.2981
-               Y │ 0.3012
-              P1 │ 0.4949
-              P2 │ 0.5052
-              K1 │ 0.3713
-              K2 │ 0.3713
-               K │ 0.7426
+              Pr │   1.05
+             PE1 │  1.737
+             PE2 │ 1.9886
+              E1 │  0.006
+              E2 │ 0.0052
+              Y1 │ 0.4168
+              Y2 │  0.414
+               Y │ 0.4154
+              P1 │ 0.4983
+              P2 │ 0.5017
+              K1 │ 0.5634
+              K2 │ 0.5634
+               K │ 1.1268
               L1 │    0.5
               L2 │    0.5
                L │    1.0
-               C │ 0.2117
-               I │ 0.0594
+               C │ 0.3045
+               I │ 0.0901
                r │ 0.1217
-               w │ 0.1807
-             Ef1 │ 0.0131
-             Er1 │ 0.0017
-             Ef2 │ 0.0052
-             Er2 │ 0.0082
-              Ef │ 0.0183
-              Er │ 0.0099
-              Mf │ 0.0183
-              Mr │ 0.0118
+               w │ 0.2576
+             Ef1 │ 0.0088
+             Er1 │ 0.0015
+             Ef2 │ 0.0033
+             Er2 │ 0.0067
+              Ef │ 0.0121
+              Er │ 0.0082
+              Mf │ 0.0121
+              Mr │ 0.0086
                T │    0.0
- renewable_share │ 0.3499
+ renewable_share │ 0.4036
            dummy │    0.0
 ─────────────────┴────────
 
-2026-05-10T15:19:07.962: End parse_statements!
-2026-05-10T15:19:07.962: End parser
+2026-05-11T21:25:10.263: End parse_statements!
+2026-05-11T21:25:10.263: End parser
