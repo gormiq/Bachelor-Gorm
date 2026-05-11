@@ -12,7 +12,7 @@
 
 \maketitle
 
-\section{Household}
+\section{Households}
 
 The representative household solves:
 
@@ -21,16 +21,26 @@ The representative household solves:
 \sum_{t=0}^{\infty} \beta^t \ln C_t
 \end{align}
 
-subject to:
+subject to the budget constraint:
 
 \begin{align}
-C_t + I_t + T_t &= w_t L_t + r_t K_t + \Pi_t,
+C_t + I_t + T_t
+=
+w_t L_t + r_t K_t + \Pi_t,
 \end{align}
 
 and the law of motion for capital:
 
 \begin{align}
-K_{t+1} &= (1-\delta)K_t + I_t.
+K_{t+1}
+=
+(1-\delta)K_t + I_t.
+\end{align}
+
+Labor supply is inelastic and fixed:
+
+\begin{align}
+L_t = \bar{L}.
 \end{align}
 
 The Euler equation is:
@@ -38,63 +48,88 @@ The Euler equation is:
 \begin{align}
 \frac{1}{C_t}
 =
-\beta \frac{1}{C_{t+1}}
+\beta
+\frac{1}{C_{t+1}}
 (1+r_{t+1}-\delta).
 \end{align}
 
-\section{Final Goods Sectors}
+In steady state, the Euler equation implies:
 
-There are two final goods sectors, indexed by \(j \in \{1,2\}\). Sector \(j\) produces:
+\begin{align}
+r
+=
+\frac{1}{\beta}
+-
+1
++
+\delta.
+\end{align}
+
+Steady-state investment satisfies:
+
+\begin{align}
+I = \delta K.
+\end{align}
+
+\section{Final-Good Producer}
+
+The competitive final-good producer combines the outputs of the two intermediate goods sectors into aggregate final output:
+
+\begin{align}
+Y_t
+=
+Y_{1,t}^{\theta}
+Y_{2,t}^{1-\theta},
+\qquad
+0 < \theta < 1.
+\end{align}
+
+The final good is the numeraire. The final-good producer solves:
+
+\begin{align}
+\max_{Y_{1,t},Y_{2,t}}
+\left(
+Y_{1,t}^{\theta}Y_{2,t}^{1-\theta}
+-
+P_{1,t}Y_{1,t}
+-
+P_{2,t}Y_{2,t}
+\right).
+\end{align}
+
+The first-order conditions imply the sectoral prices:
+
+\begin{align}
+P_{1,t}
+&=
+\theta
+\frac{Y_t}{Y_{1,t}},
+\\
+P_{2,t}
+&=
+(1-\theta)
+\frac{Y_t}{Y_{2,t}}.
+\end{align}
+
+\section{Intermediate Goods Sectors}
+
+There are two intermediate goods sectors, indexed by \(j \in \{1,2\}\). Sector \(j\) produces:
 
 \begin{align}
 Y_{j,t}
 =
-A_j K_{j,t}^{\alpha_j}
+A_j
+K_{j,t}^{\alpha_j}
 L_{j,t}^{\beta_j}
 (\chi_t E_{j,t})^{1-\alpha_j-\beta_j}.
 \end{align}
 
-Aggregate output is:
+Define the energy share parameter:
 
 \begin{align}
-Y_t = Y_{1,t} + Y_{2,t}.
-\end{align}
-
-Sector \(j\) chooses capital, labor, and energy services to maximize profits:
-
-\begin{align}
-\Pi_{j,t}
+\gamma_j
 =
-Y_{j,t}
--
-r_t K_{j,t}
--
-w_t L_{j,t}
--
-P_{E,j,t}E_{j,t}.
-\end{align}
-
-The first-order conditions are:
-
-\begin{align}
-r_t
-&=
-\alpha_j \frac{Y_{j,t}}{K_{j,t}},
-\\
-w_t
-&=
-\beta_j \frac{Y_{j,t}}{L_{j,t}},
-\\
-P_{E,j,t}
-&=
-(1-\alpha_j-\beta_j)
-\frac{Y_{j,t}}{E_{j,t}}.
-\end{align}
-
-Under perfect competition and constant returns to scale:
-
-\begin{align}
-\Pi_{j,t}=0.
+1-\alpha_j-\beta_j.
 \end{align}
 
 Equivalently:
@@ -102,24 +137,66 @@ Equivalently:
 \begin{align}
 Y_{j,t}
 =
-r_t K_{j,t}
-+
-w_t L_{j,t}
-+
-P_{E,j,t}E_{j,t}.
+A_j
+K_{j,t}^{\alpha_j}
+L_{j,t}^{\beta_j}
+(\chi_t E_{j,t})^{\gamma_j}.
 \end{align}
 
-Total final-goods-sector profits are:
+Each intermediate goods firm takes \(P_{j,t}\), \(r_t\), \(w_t\), and \(P_{E,j,t}\) as given and solves:
+
+\begin{align}
+\max_{K_{j,t},L_{j,t},E_{j,t}}
+\left(
+P_{j,t}Y_{j,t}
+-
+r_t K_{j,t}
+-
+w_t L_{j,t}
+-
+P_{E,j,t}E_{j,t}
+\right).
+\end{align}
+
+The first-order conditions are:
+
+\begin{align}
+r_t
+&=
+P_{j,t}
+\alpha_j
+\frac{Y_{j,t}}{K_{j,t}},
+\\
+w_t
+&=
+P_{j,t}
+\beta_j
+\frac{Y_{j,t}}{L_{j,t}},
+\\
+P_{E,j,t}
+&=
+P_{j,t}
+\gamma_j
+\frac{Y_{j,t}}{E_{j,t}}.
+\end{align}
+
+Under perfect competition, profits in each intermediate goods sector are zero:
+
+\begin{align}
+\Pi_{j,t}=0.
+\end{align}
+
+Total intermediate-goods-sector profits are:
 
 \begin{align}
 \Pi^Y_t
 =
-\sum_{j=1}^{2} \Pi_{j,t}.
+\sum_{j=1}^{2}\Pi_{j,t}.
 \end{align}
 
 \section{Energy Services}
 
-Each final goods sector combines fossil and renewable energy into energy services:
+Each intermediate goods sector combines fossil and renewable energy into energy services:
 
 \begin{align}
 E_{j,t}
@@ -169,7 +246,7 @@ E_{j,t}.
 
 \section{Energy Sector}
 
-The energy sector produces fossil and renewable energy using final goods as inputs. Let \(M_{f,t}\) and \(M_{r,t}\) denote final goods used in fossil and renewable energy production.
+The energy sector produces fossil and renewable energy by transforming the aggregate final good into energy inputs.
 
 Fossil energy production is:
 
@@ -187,19 +264,19 @@ E_{r,t}
 \frac{z_r}{c_r}M_{r,t}.
 \end{align}
 
-Equivalently, the final-goods inputs required for energy production are:
+Equivalently, the final-good inputs required for energy production are:
 
 \begin{align}
 M_{f,t}
-=
+&=
 \frac{c_f}{z_f}E_{f,t},
-\qquad
+\\
 M_{r,t}
-=
+&=
 \frac{c_r}{z_r}E_{r,t}.
 \end{align}
 
-Under perfect competition, fossil and renewable energy prices are equal to their marginal private costs:
+Under perfect competition, fossil and renewable energy prices are equal to marginal costs net of the renewable energy subsidy:
 
 \begin{align}
 P_{f,t}
@@ -208,13 +285,19 @@ P_{f,t}
 \\
 P_{r,t}
 &=
-\frac{c_r}{z_r} - s_t.
+\frac{c_r}{z_r}
+-
+s_t.
 \end{align}
 
 The subsidy is assumed to satisfy:
 
 \begin{align}
-0 \leq s_t < \frac{c_r}{z_r}.
+0
+\leq
+s_t
+<
+\frac{c_r}{z_r}.
 \end{align}
 
 Energy-sector profits are:
@@ -242,7 +325,11 @@ Using the pricing equations and perfect competition:
 Total profits rebated to households are:
 
 \begin{align}
-\Pi_t = \Pi^Y_t + \Pi^E_t.
+\Pi_t
+=
+\Pi^Y_t
++
+\Pi^E_t.
 \end{align}
 
 \section{Government}
@@ -250,12 +337,14 @@ Total profits rebated to households are:
 The government subsidizes renewable energy production. The subsidy is financed by a lump-sum tax on households:
 
 \begin{align}
-T_t = s_t E_{r,t}.
+T_t
+=
+s_t E_{r,t}.
 \end{align}
 
-\section{Market Clearing}
+\section{Resource Constraint}
 
-Goods market clearing is:
+Aggregate final output is used for consumption, investment, and as an input in energy production:
 
 \begin{align}
 Y_t
@@ -269,7 +358,7 @@ M_{f,t}
 M_{r,t}.
 \end{align}
 
-Using the energy production technologies:
+Using the linear energy production technologies, this can be written as:
 
 \begin{align}
 Y_t
@@ -282,6 +371,8 @@ I_t
 +
 \frac{c_r}{z_r}E_{r,t}.
 \end{align}
+
+\section{Market Clearing}
 
 Capital market clearing is:
 
@@ -301,6 +392,12 @@ L_t
 L_{1,t}
 +
 L_{2,t}.
+\end{align}
+
+Total labor supply is fixed:
+
+\begin{align}
+L_t = \bar{L}.
 \end{align}
 
 Fossil energy market clearing is:
@@ -328,24 +425,33 @@ E_{r,2,t}.
 A competitive equilibrium is a sequence of quantities:
 
 \begin{align}
-\{C_t,I_t,K_t,Y_t,Y_{1,t},Y_{2,t},E_{j,t},E_{f,j,t},E_{r,j,t},
-E_{f,t},E_{r,t},M_{f,t},M_{r,t}\},
-\qquad t=0,1,2,\ldots
+\{
+C_t,I_t,K_t,L_t,K_{1,t},K_{2,t},L_{1,t},L_{2,t},
+Y_t,Y_{1,t},Y_{2,t},
+E_{j,t},E_{f,j,t},E_{r,j,t},
+E_{f,t},E_{r,t},M_{f,t},M_{r,t}
+\}_{t=0}^{\infty},
+\qquad
+j \in \{1,2\},
 \end{align}
 
 and prices:
 
 \begin{align}
-\{w_t,r_t,P_{f,t},P_{r,t},P_{E,j,t}\},
-\qquad t=0,1,2,\ldots
+\{
+w_t,r_t,P_{1,t},P_{2,t},P_{f,t},P_{r,t},P_{E,j,t}
+\}_{t=0}^{\infty},
+\qquad
+j \in \{1,2\},
 \end{align}
 
 such that:
 
 \begin{enumerate}
-    \item the household satisfies its budget constraint, capital accumulation equation, and Euler equation;
-    \item final goods firms satisfy their first-order conditions;
-    \item final goods firms minimize the cost of energy services;
+    \item the representative household satisfies its budget constraint, capital accumulation equation, and Euler equation;
+    \item the final-good producer combines the two sectoral goods into aggregate output and satisfies its first-order conditions;
+    \item intermediate goods firms maximize profits and satisfy the first-order conditions for capital, labor, and energy demand;
+    \item intermediate goods firms minimize the cost of obtaining energy services;
     \item the energy sector satisfies its production and pricing equations;
     \item the government budget constraint holds;
     \item goods, capital, labor, fossil energy, and renewable energy markets clear.
@@ -353,7 +459,61 @@ such that:
 
 \section{Steady State}
 
-In steady state, all variables are constant over time. The Euler equation implies:
+In steady state, all endogenous variables are constant over time. Thus:
+
+\begin{align}
+C_t &= C,
+&
+K_t &= K,
+&
+I_t &= I,
+&
+Y_t &= Y,
+\\
+Y_{j,t} &= Y_j,
+&
+K_{j,t} &= K_j,
+&
+L_{j,t} &= L_j,
+&
+E_{j,t} &= E_j,
+\\
+E_{f,j,t} &= E_{f,j},
+&
+E_{r,j,t} &= E_{r,j},
+&
+E_{f,t} &= E_f,
+&
+E_{r,t} &= E_r.
+\end{align}
+
+Prices are also constant:
+
+\begin{align}
+w_t &= w,
+&
+r_t &= r,
+&
+P_{1,t} &= P_1,
+&
+P_{2,t} &= P_2,
+\\
+P_{f,t} &= P_f,
+&
+P_{r,t} &= P_r,
+&
+P_{E,j,t} &= P_{E,j}.
+\end{align}
+
+Policy and technology parameters are constant:
+
+\begin{align}
+s_t = s,
+\qquad
+\chi_t = \chi.
+\end{align}
+
+The steady-state Euler equation implies:
 
 \begin{align}
 r
@@ -365,10 +525,21 @@ r
 \delta.
 \end{align}
 
-Investment satisfies:
+Capital accumulation implies:
 
 \begin{align}
-I = \delta K.
+I
+=
+\delta K.
+\end{align}
+
+Aggregate final output is produced according to:
+
+\begin{align}
+Y
+=
+Y_1^{\theta}
+Y_2^{1-\theta}.
 \end{align}
 
 The steady-state resource constraint is:
@@ -383,6 +554,24 @@ C
 \frac{c_f}{z_f}E_f
 +
 \frac{c_r}{z_r}E_r.
+\end{align}
+
+\section{Additional Variables}
+
+The renewable energy share is defined as:
+
+\begin{align}
+\text{Renewable Share}
+=
+\frac{E_r}{E_f+E_r}.
+\end{align}
+
+If the output gap is measured relative to a baseline level of output \(Y^{base}\), then:
+
+\begin{align}
+\text{Output Gap}
+=
+\frac{Y-Y^{base}}{Y^{base}}.
 \end{align}
 
 \end{document}
