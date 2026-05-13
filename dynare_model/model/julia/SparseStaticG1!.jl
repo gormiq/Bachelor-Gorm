@@ -1,9 +1,9 @@
 function SparseStaticG1!(T::Vector{<: Real}, g1_v::Vector{<: Real}, y::Vector{<: Real}, x::Vector{<: Real}, params::Vector{<: Real})
     @assert length(T) >= 0
-    @assert length(g1_v) == 96
-    @assert length(y) == 32
+    @assert length(g1_v) == 95
+    @assert length(y) == 31
     @assert length(x) == 1
-    @assert length(params) == 21
+    @assert length(params) == 20
 @inbounds begin
 g1_v[1]=1;
 g1_v[2]=(-(params[12]^params[11]*get_power_deriv(y[1],1-params[11],1)*get_power_deriv(params[12]^params[11]*y[1]^(1-params[11])+(1-params[12])^params[11]*y[2]^(1-params[11]),1/(1-params[11]),1)));
@@ -62,7 +62,7 @@ g1_v[54]=(-((params[9]*y[6])^params[6]*y[16]^params[5]*params[8]*get_power_deriv
 g1_v[55]=1;
 g1_v[56]=(-1);
 g1_v[57]=1;
-g1_v[58]=(-params[19]);
+g1_v[58]=1-(1-params[19]);
 g1_v[59]=(-((params[9]*y[5])^params[3]*params[7]*y[12]^params[1]*get_power_deriv(y[15],params[2],1)));
 g1_v[60]=1;
 g1_v[61]=(-1);
@@ -72,11 +72,11 @@ g1_v[64]=(-1);
 g1_v[65]=1;
 g1_v[66]=1;
 g1_v[67]=1;
-g1_v[68]=1;
+g1_v[68]=(-1);
 g1_v[69]=1;
 g1_v[70]=(-((-(y[7]*y[10]*params[1]))/(y[20]*y[20])));
 g1_v[71]=(-((-(y[8]*y[11]*params[4]))/(y[20]*y[20])));
-g1_v[72]=1;
+g1_v[72]=(-params[18]);
 g1_v[73]=(-((-(y[7]*y[10]*params[2]))/(y[21]*y[21])));
 g1_v[74]=(-((-(y[8]*y[11]*params[5]))/(y[21]*y[21])));
 g1_v[75]=1;
@@ -100,7 +100,6 @@ g1_v[92]=(-(params[17]/params[15]));
 g1_v[93]=1;
 g1_v[94]=1;
 g1_v[95]=1;
-g1_v[96]=1-params[21];
 end
     return nothing
 end

@@ -1,9 +1,9 @@
 function SparseStaticResid!(T::Vector{<: Real}, residual::AbstractVector{<: Real}, y::Vector{<: Real}, x::Vector{<: Real}, params::Vector{<: Real})
     @assert length(T) >= 0
-    @assert length(residual) == 32
-    @assert length(y) == 32
+    @assert length(residual) == 31
+    @assert length(y) == 31
     @assert length(x) == 1
-    @assert length(params) == 21
+    @assert length(params) == 20
 @inbounds begin
     residual[1] = (y[1]) - (params[14]/params[16]);
     residual[2] = (y[2]) - (params[15]/params[17]-x[1]);
@@ -31,12 +31,11 @@ function SparseStaticResid!(T::Vector{<: Real}, residual::AbstractVector{<: Real
     residual[24] = (y[14]) - (y[12]+y[13]);
     residual[25] = (y[17]) - (y[15]+y[16]);
     residual[26] = (y[17]) - (params[20]);
-    residual[27] = (y[20]) - (1/params[18]-1+params[19]);
-    residual[28] = (y[19]) - (y[14]*params[19]);
+    residual[27] = (y[14]) - (y[14]*(1-params[19])+y[19]);
+    residual[28] = (1) - (params[18]*(y[20]+1-params[19]));
     residual[29] = (y[18]) - (y[9]-y[19]-y[28]-y[29]);
     residual[30] = (y[30]) - (x[1]*y[27]);
     residual[31] = (y[31]) - (y[27]/(y[26]+y[27]));
-    residual[32] = (y[32]) - (y[32]*params[21]);
 end
     return nothing
 end
