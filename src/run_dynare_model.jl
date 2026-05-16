@@ -1,5 +1,6 @@
-using Pkg
-Pkg.add("Dynare")
+using Dynare, Plots
+
+cd("C:/Bachelor-Gorm/Bachelor-Gorm")
 
 using Dynare
 

@@ -163,17 +163,7 @@
 {"statementName": "endval", "vals": [{"name": "s", "value": "0.20"}, {"name": "Pf", "value": "1.0000000"}, {"name": "Pr", "value": "0.8500000"}, {"name": "PE1", "value": "1.3351657"}, {"name": "PE2", "value": "1.1461321"}, {"name": "E1", "value": "0.0079158"}, {"name": "E2", "value": "0.0095068"}, {"name": "Y1", "value": "0.4211288"}, {"name": "Y2", "value": "0.4375118"}, {"name": "Y", "value": "0.4293052"}, {"name": "P1", "value": "0.5019265"}, {"name": "P2", "value": "0.4981102"}, {"name": "K1", "value": "0.5733212"}, {"name": "K2", "value": "0.5910964"}, {"name": "K", "value": "1.1644176"}, {"name": "L1", "value": "0.4923670"}, {"name": "L2", "value": "0.5076330"}, {"name": "L", "value": "1.0000000"}, {"name": "C", "value": "0.3121015"}, {"name": "I", "value": "0.0931534"}, {"name": "r", "value": "0.1216667"}, {"name": "w", "value": "0.2661690"}, {"name": "Ef1", "value": "0.0101950"}, {"name": "Er1", "value": "0.0004391"}, {"name": "Ef2", "value": "0.0002811"}, {"name": "Er2", "value": "0.0124886"}, {"name": "Ef", "value": "0.0104761"}, {"name": "Er", "value": "0.0129277"}, {"name": "Mf", "value": "0.0104761"}, {"name": "Mr", "value": "0.0135751"}, {"name": "T", "value": "0.0025855"}, {"name": "renewable_share", "value": "0.5523816"}]}, 
 {"statementName": "steady"}, 
 {"statementName": "perfect_foresight_setup", "options": {"periods": 300}}, 
-{"statementName": "perfect_foresight_solver"}, 
-{"statementName": "rplot", "symbol_list": ["C"]}, 
-{"statementName": "rplot", "symbol_list": ["Y"]}, 
-{"statementName": "rplot", "symbol_list": ["K","K1","K2"]}, 
-{"statementName": "rplot", "symbol_list": ["L1","L2"]}, 
-{"statementName": "rplot", "symbol_list": ["I"]}, 
-{"statementName": "rplot", "symbol_list": ["r"]}, 
-{"statementName": "rplot", "symbol_list": ["w"]}, 
-{"statementName": "rplot", "symbol_list": ["P1","P2"]}, 
-{"statementName": "rplot", "symbol_list": ["renewable_share"]}, 
-{"statementName": "rplot", "symbol_list": ["Ef","Er"]}]
+{"statementName": "perfect_foresight_solver"}]
 ,"model_info": {"lead_lag_incidence": [[ 0, 6, 0],[ 0, 7, 0],[ 0, 8, 0],[ 0, 9, 0],[ 0, 10, 0],[ 0, 11, 0],[ 0, 12, 0],[ 0, 13, 0],[ 0, 14, 0],[ 0, 15, 0],[ 0, 16, 0],[ 1, 17, 0],[ 2, 18, 0],[ 3, 19, 0],[ 4, 20, 0],[ 5, 21, 0],[ 0, 22, 0],[ 0, 23, 37],[ 0, 24, 0],[ 0, 25, 38],[ 0, 26, 0],[ 0, 27, 0],[ 0, 28, 0],[ 0, 29, 0],[ 0, 30, 0],[ 0, 31, 0],[ 0, 32, 0],[ 0, 33, 0],[ 0, 34, 0],[ 0, 35, 0],[ 0, 36, 0]], "nstatic": 24, 
 "nfwrd": 2, 
 "npred": 5, 

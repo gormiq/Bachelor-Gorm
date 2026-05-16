@@ -374,14 +374,3 @@ steady;
 
 perfect_foresight_setup(periods=300);
 perfect_foresight_solver;
-
-rplot C;
-rplot Y;
-rplot K K1 K2;
-rplot L1 L2;
-rplot I;
-rplot r;
-rplot w;
-rplot P1 P2;
-rplot renewable_share;
-rplot Ef Er;
