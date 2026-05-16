@@ -1,115 +1,115 @@
 Dynare version: 0.10.4
-2026-05-13T23:21:49.578: Starting @dynare dynare_model.mod
+2026-05-16T13:00:24.132: Starting @dynare dynare_model.mod
 ["dynare_model.mod", "language=julia", "json=compute", "notmpterms"]
 Dynare preprocessor version: 7.0.0+0
-2026-05-13T23:21:49.827: End of preprocessing
-2026-05-13T23:21:49.926: Start parse_statements!
+2026-05-16T13:00:24.234: End of preprocessing
+2026-05-16T13:00:24.309: Start parse_statements!
   Steady state
 
-─────────────────┬────────
-       Pf        │  1.0
-              Pr │   1.05
-             PE1 │  1.737
-             PE2 │ 1.9886
-              E1 │  0.006
-              E2 │ 0.0052
-              Y1 │ 0.4168
-              Y2 │  0.414
-               Y │ 0.4154
-              P1 │ 0.4983
-              P2 │ 0.5017
-              K1 │ 0.5634
-              K2 │ 0.5634
-               K │ 1.1268
-              L1 │    0.5
-              L2 │    0.5
-               L │    1.0
-               C │ 0.3045
-               I │ 0.0901
-               r │ 0.1217
-               w │ 0.2576
-             Ef1 │ 0.0088
-             Er1 │ 0.0015
-             Ef2 │ 0.0033
-             Er2 │ 0.0067
-              Ef │ 0.0121
-              Er │ 0.0082
-              Mf │ 0.0121
-              Mr │ 0.0086
-               T │    0.0
- renewable_share │ 0.4036
-─────────────────┴────────
+─────────────────────────────────────────────────┬────────
+               Fossil energy price               │  1.0
+                          Renewable energy price │   1.05
+                     Energy price index sector 1 │ 1.3442
+                     Energy price index sector 2 │ 1.4073
+                        Energy services sector 1 │  0.008
+                        Energy services sector 2 │ 0.0075
+                                 Output sector 1 │ 0.4281
+                                 Output sector 2 │ 0.4232
+                          Aggregate final output │ 0.4256
+                    Price of intermediate good 1 │ 0.4994
+                    Price of intermediate good 2 │ 0.5006
+                                Capital sector 1 │ 0.5799
+                                Capital sector 2 │ 0.5746
+                               Aggregate capital │ 1.1545
+                                  Labor sector 1 │ 0.5023
+                                  Labor sector 2 │ 0.4977
+                                 Aggregate labor │    1.0
+                           Household consumption │  0.312
+                                      Investment │ 0.0924
+                               Return on capital │ 0.1217
+                                            Wage │ 0.2639
+                   Fossil energy demand sector 1 │ 0.0104
+                Renewable energy demand sector 1 │ 0.0003
+                   Fossil energy demand sector 2 │ 0.0003
+                Renewable energy demand sector 2 │ 0.0098
+                         Aggregate fossil energy │ 0.0107
+                      Aggregate renewable energy │ 0.0101
+    Final goods used in fossil energy production │ 0.0107
+ Final goods used in renewable energy production │ 0.0106
+                                    Lump-sum tax │    0.0
+                          Renewable energy share │ 0.4842
+─────────────────────────────────────────────────┴────────
 
   Initial steady state
 
-─────────────────┬────────
-       Pf        │  1.0
-              Pr │   1.05
-             PE1 │  1.737
-             PE2 │ 1.9886
-              E1 │  0.006
-              E2 │ 0.0052
-              Y1 │ 0.4168
-              Y2 │  0.414
-               Y │ 0.4154
-              P1 │ 0.4983
-              P2 │ 0.5017
-              K1 │ 0.5634
-              K2 │ 0.5634
-               K │ 1.1268
-              L1 │    0.5
-              L2 │    0.5
-               L │    1.0
-               C │ 0.3045
-               I │ 0.0901
-               r │ 0.1217
-               w │ 0.2576
-             Ef1 │ 0.0088
-             Er1 │ 0.0015
-             Ef2 │ 0.0033
-             Er2 │ 0.0067
-              Ef │ 0.0121
-              Er │ 0.0082
-              Mf │ 0.0121
-              Mr │ 0.0086
-               T │    0.0
- renewable_share │ 0.4036
-─────────────────┴────────
+─────────────────────────────────────────────────┬────────
+               Fossil energy price               │  1.0
+                          Renewable energy price │   1.05
+                     Energy price index sector 1 │ 1.3442
+                     Energy price index sector 2 │ 1.4073
+                        Energy services sector 1 │  0.008
+                        Energy services sector 2 │ 0.0075
+                                 Output sector 1 │ 0.4281
+                                 Output sector 2 │ 0.4232
+                          Aggregate final output │ 0.4256
+                    Price of intermediate good 1 │ 0.4994
+                    Price of intermediate good 2 │ 0.5006
+                                Capital sector 1 │ 0.5799
+                                Capital sector 2 │ 0.5746
+                               Aggregate capital │ 1.1545
+                                  Labor sector 1 │ 0.5023
+                                  Labor sector 2 │ 0.4977
+                                 Aggregate labor │    1.0
+                           Household consumption │  0.312
+                                      Investment │ 0.0924
+                               Return on capital │ 0.1217
+                                            Wage │ 0.2639
+                   Fossil energy demand sector 1 │ 0.0104
+                Renewable energy demand sector 1 │ 0.0003
+                   Fossil energy demand sector 2 │ 0.0003
+                Renewable energy demand sector 2 │ 0.0098
+                         Aggregate fossil energy │ 0.0107
+                      Aggregate renewable energy │ 0.0101
+    Final goods used in fossil energy production │ 0.0107
+ Final goods used in renewable energy production │ 0.0106
+                                    Lump-sum tax │    0.0
+                          Renewable energy share │ 0.4842
+─────────────────────────────────────────────────┴────────
 
   Terminal steady state
 
-─────────────────┬────────
-       Pf        │  1.0
-              Pr │   0.85
-             PE1 │ 1.6782
-             PE2 │ 1.7137
-              E1 │ 0.0062
-              E2 │ 0.0061
-              Y1 │ 0.4187
-              Y2 │ 0.4183
-               Y │ 0.4185
-              P1 │ 0.4997
-              P2 │ 0.5003
-              K1 │ 0.5676
-              K2 │ 0.5676
-               K │ 1.1351
-              L1 │    0.5
-              L2 │    0.5
-               L │    1.0
-               C │ 0.3045
-               I │ 0.0908
-               r │ 0.1217
-               w │ 0.2595
-             Ef1 │ 0.0086
-             Er1 │ 0.0022
-             Ef2 │ 0.0029
-             Er2 │ 0.0089
-              Ef │ 0.0115
-              Er │ 0.0111
-              Mf │ 0.0115
-              Mr │ 0.0117
-               T │ 0.0022
- renewable_share │ 0.4922
-─────────────────┴────────
+─────────────────────────────────────────────────┬────────
+               Fossil energy price               │  1.0
+                          Renewable energy price │   0.85
+                     Energy price index sector 1 │ 1.3352
+                     Energy price index sector 2 │ 1.1461
+                        Energy services sector 1 │ 0.0079
+                        Energy services sector 2 │ 0.0095
+                                 Output sector 1 │ 0.4211
+                                 Output sector 2 │ 0.4375
+                          Aggregate final output │ 0.4293
+                    Price of intermediate good 1 │ 0.5019
+                    Price of intermediate good 2 │ 0.4981
+                                Capital sector 1 │ 0.5733
+                                Capital sector 2 │ 0.5911
+                               Aggregate capital │ 1.1644
+                                  Labor sector 1 │ 0.4924
+                                  Labor sector 2 │ 0.5076
+                                 Aggregate labor │    1.0
+                           Household consumption │ 0.3121
+                                      Investment │ 0.0932
+                               Return on capital │ 0.1217
+                                            Wage │ 0.2662
+                   Fossil energy demand sector 1 │ 0.0102
+                Renewable energy demand sector 1 │ 0.0004
+                   Fossil energy demand sector 2 │ 0.0003
+                Renewable energy demand sector 2 │ 0.0125
+                         Aggregate fossil energy │ 0.0105
+                      Aggregate renewable energy │ 0.0129
+    Final goods used in fossil energy production │ 0.0105
+ Final goods used in renewable energy production │ 0.0136
+                                    Lump-sum tax │ 0.0026
+                          Renewable energy share │ 0.5524
+─────────────────────────────────────────────────┴────────
 
-2026-05-13T23:22:02.387: End parser
+2026-05-16T13:00:34.082: End parser
