@@ -83,11 +83,11 @@ parameters
 
 // Sectoral production - symmetric neoclassical shares
 alpha1 = 0.33;
-beta1  = 0.62;
+beta1  = 0.61;
 gamma1 = 1 - alpha1 - beta1;
 
 alpha2 = 0.33;
-beta2  = 0.62;
+beta2  = 0.61;
 gamma2 = 1 - alpha2 - beta2;
 
 A1  = 1.0;
