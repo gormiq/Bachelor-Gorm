@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #=================================================================
 # Kombinacja experiments
 # Two-sector neoclassical model with renewable energy subsidies
@@ -485,3 +486,6 @@ function main()
 end
 
 main()
+=======
+dd
+>>>>>>> 03d429c178bf961c5736d3441010f181f9f3dfc9
