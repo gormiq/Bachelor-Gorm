@@ -269,48 +269,71 @@ end
  
 function plot_long_run(grid, results, param_label::String;
                        outfile::String="")
- 
+
     grid_present = filter(v -> haskey(results, Float64(v)), grid)
- 
+
     if isempty(grid_present)
         println("No successful simulations for long-run plot: ", param_label)
         return nothing
     end
- 
+
     delta_C = [
         results[Float64(v)]["C"][end] - results[Float64(v)]["C"][1]
         for v in grid_present
     ]
- 
+
     delta_rs = [
         results[Float64(v)]["renewable_share"][end] -
         results[Float64(v)]["renewable_share"][1]
         for v in grid_present
     ]
- 
-    p1 = plot(grid_present, delta_C;
-              xlabel    = param_label,
-              ylabel    = "ΔC",
-              title     = "Long-run consumption gain",
-              marker    = :circle,
-              linewidth = 2,
-              label     = "")
- 
-    p2 = plot(grid_present, delta_rs;
-              xlabel    = param_label,
-              ylabel    = "Δ renewable share",
-              title     = "Long-run renewable share gain",
-              marker    = :circle,
-              linewidth = 2,
-              label     = "")
- 
-    combined = plot(p1, p2; layout=(1, 2), size=(900, 350))
- 
+
+    # Convert to percentage-like scale for readability
+    delta_C_scaled  = delta_C  .* 1000   # promille
+    delta_rs_scaled = delta_rs .* 100    # percentage points
+
+    p1 = plot(grid_present, delta_C_scaled;
+              xlabel       = param_label,
+              ylabel       = "ΔC (×10⁻³)",
+              title        = "Long-run consumption gain",
+              marker       = :circle,
+              markersize   = 6,
+              linewidth    = 2.5,
+              color        = :steelblue,
+              label        = "",
+              grid         = true,
+              gridalpha    = 0.3,
+              framestyle   = :box,
+              left_margin  = 5Plots.mm,
+              bottom_margin = 5Plots.mm)
+
+    p2 = plot(grid_present, delta_rs_scaled;
+              xlabel       = param_label,
+              ylabel       = "Δ renewable share (p.p.)",
+              title        = "Long-run renewable share gain",
+              marker       = :circle,
+              markersize   = 6,
+              linewidth    = 2.5,
+              color        = :darkorange,
+              label        = "",
+              grid         = true,
+              gridalpha    = 0.3,
+              framestyle   = :box,
+              left_margin  = 5Plots.mm,
+              bottom_margin = 5Plots.mm)
+
+    combined = plot(p1, p2;
+                    layout = (1, 2),
+                    size   = (1000, 400),
+                    dpi    = 150,
+                    background_color        = :white,
+                    background_color_inside = :white)
+
     if !isempty(outfile)
         savefig(combined, joinpath(OUT_DIR, outfile))
         println("Saved: ", outfile)
     end
- 
+
     return combined
 end
  
