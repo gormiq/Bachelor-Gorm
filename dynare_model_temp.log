@@ -1,4 +1,0 @@
-Dynare version: 0.10.4
-2026-05-07T21:40:13.396: Starting @dynare dynare_model_temp.mod
-["dynare_model_temp.mod", "language=julia", "json=compute", "notmpterms"]
-Dynare preprocessor version: 7.0.0+0
